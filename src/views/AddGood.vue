@@ -62,6 +62,8 @@ import WangEditor from 'wangeditor'
 import axios from '@/utils/axios'
 import { ElMessage } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router'
+
+//图片上传
 import { localGet, uploadImgServer, uploadImgsServer } from '@/utils'
 
 const { proxy } = getCurrentInstance()
@@ -224,6 +226,7 @@ const handleChangeCate = (val) => {
   state.categoryId = val[2] || 0
 }
 </script>
+
 
 <style scoped>
   .add {

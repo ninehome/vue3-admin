@@ -1,1 +1,9 @@
 admin 123456
+
+
+本项目是用yarn 来管理 依赖包，需要 使用yarn 来管理工程 替代 Npm
+1.sudo npm install -g yarn
+2.yarn --version
+3.yarn install   安装package.json下的依赖
+4。yarn run dev  启动项目
+添加商品
