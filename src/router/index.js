@@ -25,7 +25,7 @@ const router = createRouter({
     {
       path: '/add',
       name: 'add',
-      component: () => import(/* webpackChunkName: "add" */ '../views/AddGood.vue')
+      component: () => import(/* 添加商品 webpackChunkName: "add" */ '../views/AddGood.vue')
     },
     {
       path: '/swiper',
