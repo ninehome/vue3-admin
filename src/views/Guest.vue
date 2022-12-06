@@ -64,7 +64,7 @@
         <el-table-column
             label="操作"
         >
-          <el-button type="primary" @click="updateUser">修改</el-button>
+          <el-button type="primary" @click="updateUser()">修改</el-button>
         </el-table-column>
 
       </template>
@@ -81,6 +81,8 @@ import axios from '@/utils/axios'
 import md5 from "js-md5";
 import {localGet, localSet} from "@/utils";
 
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const table = ref(null)
 const handleSolve = () => {
     if (!table.value.multipleSelection.length) {
@@ -110,20 +112,24 @@ const handleForbid = () => {
 // "/manage-api/v1/users?pageNumber=1&pageSize=10"
 
 //修改用户余额 和 等级
-const  updateUser=()=>{
-  console.log(22222)
-  localGet('token')
-  axios.post('/adminUser/moneyAndLevel', {
-    userMoney: 3333,
-    userLevel: 2,
-    userId:7,
-  }).then(res => {
 
-
-  })
-
-
-
+const  updateUser=(id)=>{
+  // console.log(22222)
+  // localGet('token')
+  // axios.post('/adminUser/moneyAndLevel', {
+  //   userMoney: 3333,
+  //   userLevel: 2,
+  //   userId:7,
+  // }).then(res => {
+  //
+  //
+  // })
+  // update_user
+  // router.push({ path: '/update_user', query: { id } })
+  // useRouter.push({ path: '/update_user'})
+  id =7
+  router.push({ path: '/update_user', query: { id } })
+  // router.push('/update_user')
 }
 </script>
 

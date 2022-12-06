@@ -88,6 +88,11 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: () => import(/* webpackChunkName: "account" */ '../views/Account.vue')
+    },
+    {
+      path: '/update_user',
+      name: 'update_user',
+      component: () => import(/* webpackChunkName: "account" */ '../views/UpdateUser.vue')
     }
   ]
 })

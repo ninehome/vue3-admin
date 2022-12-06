@@ -14,3 +14,8 @@ https://cloud.tencent.com/developer/article/1678091
 
 //查询 IP
 https://www.ip2location.com/log-in
+
+
+//路由跳转 传参 规则
+
+https://codeantenna.com/a/2lZyu25evh
