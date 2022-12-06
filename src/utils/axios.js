@@ -9,8 +9,8 @@ import config from '~/config'
 // axios.defaults.baseURL = config[import.meta.env.MODE].baseUrl
 axios.defaults.baseURL =
     process.env.NODE_ENV == "development"
-        ? "http://localhost:8888/manage-api/v1"
-        : "http://localhost:8888/manage-api/v1";
+        ? "http://localhost:9191/manage-api/v1"
+        : "http://localhost:9191/manage-api/v1";
 // 携带 cookie，对目前的项目没有什么作用，因为我们是 token 鉴权
 axios.defaults.withCredentials = true
 // 请求头，headers 信息
@@ -33,6 +33,7 @@ axios.interceptors.response.use(res => {
     return Promise.reject(res.data)
   }
 
+  console.log(res.data.data)
   return res.data.data
 })
 
