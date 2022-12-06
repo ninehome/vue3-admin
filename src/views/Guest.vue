@@ -114,22 +114,9 @@ const handleForbid = () => {
 //修改用户余额 和 等级
 
 const  updateUser=(id)=>{
-  // console.log(22222)
-  // localGet('token')
-  // axios.post('/adminUser/moneyAndLevel', {
-  //   userMoney: 3333,
-  //   userLevel: 2,
-  //   userId:7,
-  // }).then(res => {
-  //
-  //
-  // })
-  // update_user
-  // router.push({ path: '/update_user', query: { id } })
-  // useRouter.push({ path: '/update_user'})
-  id =7
-  router.push({ path: '/update_user', query: { id } })
-  // router.push('/update_user')
+  id = 7
+  router.push({ path: '/update_user', params:{id:123} })
+
 }
 </script>
 
