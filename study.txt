@@ -7,3 +7,10 @@ admin 123456
 3.yarn install   安装package.json下的依赖
 4。yarn run dev  启动项目
 添加商品
+
+
+//获取用户IP 地址
+https://cloud.tencent.com/developer/article/1678091
+
+//查询 IP
+https://www.ip2location.com/log-in

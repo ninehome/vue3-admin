@@ -64,7 +64,6 @@
         <el-table-column
             label="操作"
         >
-
           <el-button type="primary" @click="updateUser">修改</el-button>
         </el-table-column>
 
@@ -79,6 +78,8 @@ import Table from '@/components/Table.vue'
 import { ElMessage } from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import axios from '@/utils/axios'
+import md5 from "js-md5";
+import {localGet, localSet} from "@/utils";
 
 const table = ref(null)
 const handleSolve = () => {
@@ -106,10 +107,22 @@ const handleForbid = () => {
       table.value.getList()
     })
 }
+// "/manage-api/v1/users?pageNumber=1&pageSize=10"
 
 //修改用户余额 和 等级
 const  updateUser=()=>{
   console.log(22222)
+  localGet('token')
+  axios.post('/adminUser/moneyAndLevel', {
+    userMoney: 3333,
+    userLevel: 2,
+    userId:7,
+  }).then(res => {
+
+
+  })
+
+
 
 }
 </script>
