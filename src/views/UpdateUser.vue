@@ -54,8 +54,6 @@ const state = reactive({
 
 onMounted(() => {
   uid =  router.query.type
-
-
   axios.post('/user/profile',{
     "UserId":uid
   }).then(res => {
@@ -78,7 +76,7 @@ let  level = state.nameForm.userLevel
     "userLevel":Number(level),
     "userId":Number(uid)
   }).then(res => {
-      ElMessage.error('修改成功！')
+      ElMessage('修改成功！')
       routermian.push('/guest')
   })
 
