@@ -1,74 +1,88 @@
 <template>
   <el-card class="account-container">
 
+    <el-form :model="state.nameForm"  ref="nameRef" label-width="180px" label-position="right" class="demo-ruleForm">
+      <el-form-item label="用户账号：" prop="loginName">
+        <el-input style="width: 200px" v-model="state.nameForm.loginName" disabled ="false"></el-input>
+      </el-form-item>
 
-    <el-form :model="state.nameForm"  ref="nameRef" label-width="80px" label-position="right" class="demo-ruleForm">
-      <el-form-item label="用户等级：" prop="loginName">
-        <el-input style="width: 200px" v-model="state.nameForm.loginName"></el-input>
+      <el-form-item label="VIP等级：" prop="loginName">
+        <el-input style="width: 200px" v-model="state.nameForm.userLevel"></el-input>
       </el-form-item>
 
 
       <el-form-item label="账户余额：" prop="nickName">
-        <el-input style="width: 200px" v-model="state.nameForm.nickName"></el-input>
+        <el-input style="width: 200px" v-model="state.nameForm.userMoney"></el-input>
       </el-form-item>
 
 
       <el-form-item>
-        <el-button type="danger" @click="submitName">确认修改</el-button>
+        <el-button type="danger" @click="subMit">确认修改</el-button>
       </el-form-item>
     </el-form>
+
+
   </el-card>
 
 </template>
 
 <script setup>
+
 import { onMounted, reactive, ref } from 'vue'
 import axios from '@/utils/axios'
-// import { ElMessage } from 'element-plus'
-// import md5 from 'js-md5'
-import { useRouter } from 'vue-router'
-
-
-const router = useRouter()
-
-const nameRef = ref(null)
-const passRef = ref(null)
-
+import {useRouter, useRoute} from 'vue-router'
+import md5 from "js-md5";
+import {localSet} from "@/utils";
+import {ElMessage} from "element-plus"; //useRouter 全局  useRoute当前
+const router = useRoute()
+const routermian = useRouter()
+// const nameRef = ref(null)
 let uid
+//视图响应对象   reactive取值赋值不需要.value方式  。视图响应对象   reactive取值赋值不需要.value方式
+//对基本 数据类型 无效
 const state = reactive({
   user: null,
   nameForm: {
-    loginName: '',
-    nickName: ''
+    userLevel: '0',
+    userMoney: '0',
+    loginName:'0',
+    userId:0
   },
-  passForm: {
-    oldpass: '',
-    newpass: ''
-  },
+
 })
+
+
 onMounted(() => {
-  axios.post('/user/profile').then(res => {
-    state.user = res
-    state.nameForm.loginName = res.loginUserName
-    state.nameForm.nickName = res.nickName
+  uid =  router.query.type
+
+
+  axios.post('/user/profile',{
+    "UserId":uid
+  }).then(res => {
+    // console.log(res)
+    // state.user = res
+    state.nameForm.userLevel = res.userLevel
+    state.nameForm.userMoney = res.userMoney
+    state.nameForm.loginName = res.loginName
+    state.nameForm.userId = res.userId
   })
 
-  uid = router.params.id
 })
 
 
-console.log(uid)
-
-const  updateUser=(id)=>{
-  console.log(22222)
-  localGet('token')
+const  subMit=()=>{
+let  money  = state.nameForm.userMoney
+let  level = state.nameForm.userLevel
   axios.post('/adminUser/moneyAndLevel', {
-    userMoney: 3333,
-    userLevel: 2,
-    userId:7,
+    "userMoney":Number(money),
+    "userLevel":Number(level),
+    "userId":Number(uid)
   }).then(res => {
-
+      ElMessage.error('修改成功！')
+      routermian.push('/guest')
   })
+
+
 
 }
 

@@ -61,10 +61,23 @@
         >
         </el-table-column>
 
+<!--        <el-table-column-->
+<!--            label="操作">-->
+<!--          <template #default="scope">-->
+<!--            <el-button type="primary" @click="updateUser(scope.row.userId)">修改</el-button>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
+
         <el-table-column
             label="操作"
         >
-          <el-button type="primary" @click="updateUser()">修改</el-button>
+          <template #default="scope">
+            <el-button type="primary" @click="updateUser(scope.row.userId)">修改</el-button>
+
+<!--            <span :style="scope.row.lockedFlag == 0 ? 'color: green;' : 'color: red;'">-->
+<!--              {{ scope.row.isDeleted == 0 ? '正常' : '注销' }}-->
+<!--            </span>-->
+          </template>
         </el-table-column>
 
       </template>
@@ -114,8 +127,7 @@ const handleForbid = () => {
 //修改用户余额 和 等级
 
 const  updateUser=(id)=>{
-  id = 7
-  router.push({ path: '/update_user', params:{id:123} })
+  router.push({ path: '/update_user', query: { type: id }})
 
 }
 </script>
