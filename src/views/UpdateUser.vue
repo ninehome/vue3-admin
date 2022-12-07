@@ -76,7 +76,11 @@ let  level = state.nameForm.userLevel
     "userLevel":Number(level),
     "userId":Number(uid)
   }).then(res => {
-      ElMessage('修改成功！')
+    ElMessage({
+      message: '操作成功!!!',
+      grouping: true,
+      type: 'success',
+    })
       routermian.push('/guest')
   })
 
