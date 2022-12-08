@@ -32,9 +32,9 @@ axios.interceptors.response.use(res => {
     ElMessage.error('服务端异常！')
     return Promise.reject(res)
   }
-  if (res.data.resultCode != 200) {
+  if (res.data.resultCode !== 200) {
     if (res.data.message) ElMessage.error(res.data.message)
-    if (res.data.resultCode == 419) {
+    if (res.data.resultCode === 416) {
       router.push({ path: '/login' })
     }
     return Promise.reject(res.data)
