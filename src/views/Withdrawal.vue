@@ -105,7 +105,7 @@ onMounted(() => {
 // 获取列表
 const getGoodList = () => {
   state.loading = true
-  axios.get('/users/withdrawals',{
+  axios.post('/users/withdrawals',{
     pageNumber: state.currentPage,
     pageSize: state.pageSize
   }).then(res => {
