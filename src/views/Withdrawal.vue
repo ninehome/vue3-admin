@@ -13,14 +13,35 @@
       >
       </el-table-column>
       <el-table-column
-          prop="userLevel"
-          label="用户等级"
+          prop="loginName"
+          label="用户账号"
       >
       </el-table-column>
       <el-table-column
-          prop="loginName"
-          label="用户登录账号"
+          prop="userLevel"
+          label="vip等级"
       >
+      </el-table-column>
+
+      <el-table-column
+          prop="createTime"
+          label="提款银行"
+      >
+      </el-table-column>
+
+      <el-table-column
+          prop="createTime"
+          label="银行账户"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="createTime"
+          label="银行姓名"
+      >
+      </el-table-column>
+      <el-table-column
+          prop="withdrawMoney"
+          label="提款金额">
       </el-table-column>
       <el-table-column
           prop="createTime"
@@ -28,14 +49,8 @@
       >
       </el-table-column>
 
-
       <el-table-column
-          prop="withdrawMoney"
-          label="提款金额">
-
-      </el-table-column>
-      <el-table-column
-          label="支付状态"
+          label="出款状态"
       >
         <template #default="scope">
           <span style="color: red;" v-if="scope.row.dealFlag === 0">未出款</span>
