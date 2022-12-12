@@ -40,8 +40,8 @@
           label="订单状态"
       >
         <template #default="scope">
-          <span style="color: red;" v-if="scope.row.payStatus === 0">未支付</span>
-          <span style="color: green;" v-else="scope.row.payStatus === 1">支付完成</span>
+          <span style="color: red;" v-if="scope.row.orderStatus === 5">回购完成</span>
+          <span style="color: green;" v-else="scope.row.orderStatus === 4">申请回购</span>
           <!--          <span style="color: yellow;" v-else>异常订单</span>-->
         </template>
       </el-table-column>
@@ -50,8 +50,8 @@
           label="操作"
           width="100"
       >
-        <template #default="scope">
-          <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.goodsId)">修改</a>
+        <template #default="scope" >
+          <a  style="cursor: pointer; margin-right: 10px ; color: #1baeae" @click="handleEdit(scope.row) " >确认回购</a>
           <!--          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.goodsSellStatus == 0" @click="handleStatus(scope.row.goodsId, 1)">下架</a>-->
           <!--          <a style="cursor: pointer; margin-right: 10px" v-else @click="handleStatus(scope.row.goodsId, 0)">上架</a>-->
         </template>
@@ -84,19 +84,23 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 10 // 分页大小
+  pageSize: 20 // 分页大小
 })
 onMounted(() => {
   getGoodList()
 })
-// 获取轮播图列表
+
 const getGoodList = () => {
   state.loading = true
-  axios.get('/orders', {
+  axios.get('/orders/buyback', {
     params: {
       pageNumber: state.currentPage,
       pageSize: state.pageSize,
-    }
+      orderStatus:"4",
+      orderNo:""
+    },
+    // orderStatus:"4",
+
   }).then(res => {
     state.tableData = res.list
     state.total = res.totalCount
@@ -108,7 +112,34 @@ const getGoodList = () => {
 const handleAdd = () => {
   // router.push({ path: '/add' })
 }
-const handleEdit = (id) => {
+const handleEdit = (raw) => {
+  if (raw.orderStatus === 5){
+    ElMessage.success('已经回购订单,不可继续操作')
+    return
+  }
+
+  if (raw.orderStatus === 4){
+    console.log("ssssssssss")
+    console.log(raw.orderNo)
+    console.log("ssssssssss")
+
+    //回购 --- >修改订单状态
+    axios.post('/orders/back', {
+        orderNo:raw.orderNo
+      }
+
+    ).then(res => {
+      getGoodList()
+    })
+
+
+
+
+
+
+  }
+
+
   // router.push({ path: '/add', query: { id } })
 }
 const changePage = (val) => {

@@ -8,43 +8,44 @@
         style="width: 100%"
     >
       <el-table-column
-          prop="withdrawId"
+          prop="withdraw.withdrawId"
           label="提款编号"
       >
       </el-table-column>
       <el-table-column
-          prop="loginName"
+          prop="withdraw.loginName"
           label="用户账号"
       >
       </el-table-column>
       <el-table-column
-          prop="userLevel"
+          prop="withdraw.userLevel"
           label="vip等级"
       >
       </el-table-column>
 
       <el-table-column
-          prop="createTime"
+          prop="bank.bankName"
           label="提款银行"
       >
       </el-table-column>
 
       <el-table-column
-          prop="createTime"
+          prop="bank.bankNumber"
           label="银行账户"
+          style="width: 200px"
       >
       </el-table-column>
       <el-table-column
-          prop="createTime"
+          prop="bank.userName"
           label="银行姓名"
       >
       </el-table-column>
       <el-table-column
-          prop="withdrawMoney"
+          prop="withdraw.withdrawMoney"
           label="提款金额">
       </el-table-column>
       <el-table-column
-          prop="createTime"
+          prop="withdraw.createTime"
           label="提款时间"
       >
       </el-table-column>
@@ -53,8 +54,8 @@
           label="出款状态"
       >
         <template #default="scope">
-          <span style="color: red;" v-if="scope.row.dealFlag === 0">未出款</span>
-          <span style="color: green;" v-else="scope.row.dealFlag === 1">已出款</span>
+          <span style="color: red;" v-if="scope.row.withdraw.dealFlag === 0">未出款</span>
+          <span style="color: green;" v-else="scope.row.withdraw.dealFlag === 1">已出款</span>
 <!--          <span style="color: yellow;" v-else>异常订单</span>-->
         </template>
       </el-table-column>
@@ -105,7 +106,7 @@ onMounted(() => {
 // 获取列表
 const getGoodList = () => {
   state.loading = true
-  axios.post('/users/withdrawals',{
+   axios.post('/users/withdrawals',{
     pageNumber: state.currentPage,
     pageSize: state.pageSize
   }).then(res => {
