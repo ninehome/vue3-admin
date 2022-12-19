@@ -26,7 +26,7 @@ export function hasEmoji (str = '') {
 }
 
 // 单张图片上传
-export const uploadImgServer = 'http://localhost:8888/manage-api/v1/upload/filev2'
+export const uploadImgServer = 'http://localhost:9191/manage-api/v1/upload/filev2'
 // 多张图片上传
 export const uploadImgsServer = 'http://backend-api-02.newbee.ltd/manage-api/v1/upload/files'
 
