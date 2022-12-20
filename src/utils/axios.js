@@ -10,8 +10,8 @@ import config from '~/config'
 http://154.198.224.126:9191
 axios.defaults.baseURL =
     process.env.NODE_ENV == "development"
-        ? "https://154.198.224.126:9191/manage-api/v1"
-        : "https://154.198.224.126:9191/manage-api/v1";
+        ? "http://154.198.224.126:9191/manage-api/v1"
+        : "http://154.198.224.126:9191/manage-api/v1";
 
 // axios.defaults.baseURL =
 //     process.env.NODE_ENV == "development"
