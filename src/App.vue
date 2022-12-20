@@ -47,6 +47,7 @@
               <el-menu-item index="/order"><el-icon><List /></el-icon>订单管理</el-menu-item>
               <el-menu-item index="/withdrawal"><el-icon><List /></el-icon>提现管理</el-menu-item>
               <el-menu-item index="/mall_collect"><el-icon><List /></el-icon>商品回购</el-menu-item>
+              <el-menu-item index="/mall_chat"><el-icon><List /></el-icon>客服账号管理</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-sub-menu index="4">
@@ -89,6 +90,7 @@ const state = reactive({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log(to.path)
   if (to.path == '/login') {
     // 如果路径是 /login 则正常执行
     next()

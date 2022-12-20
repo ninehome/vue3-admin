@@ -95,6 +95,16 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "order_detail" */ '../views/OrderBuyBack.vue')
     },
     {
+      path: '/mall_chat',
+      name: 'mall_chat',
+      component: () => import(/* webpackChunkName: "order_detail" */ '../views/ChatService.vue')
+    },
+    {
+      path: '/update_chat',
+      name: 'update_chat',
+      component: () => import(/* webpackChunkName: "order_detail" */ '../views/ChatUpdate.vue')
+    },
+    {
       path: '/account',
       name: 'account',
       component: () => import(/* webpackChunkName: "account" */ '../views/Account.vue')

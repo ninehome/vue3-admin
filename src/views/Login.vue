@@ -13,7 +13,7 @@
           <el-input type="text" v-model.trim="state.ruleForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model.trim="state.ruleForm.password" autocomplete="off"></el-input>
+          <el-input type="text" v-model.trim="state.ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <div style="color: #333">登录表示您已同意<a>《服务条款》</a></div>
