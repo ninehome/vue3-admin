@@ -2,9 +2,9 @@
   <div class="add">
     <el-card class="add-container">
       <el-form :model="state.goodForm" :rules="state.rules" ref="goodRef" label-width="100px" class="goodForm">
-        <el-form-item required label="商品分类">
-          <el-cascader :placeholder="state.defaultCate" style="width: 300px" :props="state.category" @change="handleChangeCate"></el-cascader>
-        </el-form-item>
+<!--        <el-form-item required label="商品分类">-->
+<!--          <el-cascader :placeholder="state.defaultCate" style="width: 300px" :props="state.category" @change="handleChangeCate"></el-cascader>-->
+<!--        </el-form-item>-->
         <el-form-item label="商品名称" prop="goodsName">
           <el-input style="width: 300px" v-model="state.goodForm.goodsName" placeholder="请输入商品名称"></el-input>
         </el-form-item>
@@ -169,7 +169,7 @@ onMounted(() => {
         goodsCoverImg: proxy.$filters.prefix(goods.goodsCoverImg),
         tag: goods.tag
       }
-      state.categoryId = goods.goodsCategoryId
+      state.categoryId = 51
       state.defaultCate = `${firstCategory.categoryName}/${secondCategory.categoryName}/${thirdCategory.categoryName}`
       if (instance) {
         // 初始化商品详情 html
