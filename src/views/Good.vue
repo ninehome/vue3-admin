@@ -117,7 +117,7 @@ const handleAdd = () => {
   router.push({ path: '/add' })
 }
 const handleEdit = (id) => {
-  router.push({ path: '/add', query: { id } })
+  router.push({ path: '/update', query: { id } })
 }
 const changePage = (val) => {
   state.currentPage = val
