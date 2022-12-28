@@ -8,14 +8,14 @@ import config from '~/config'
 // 这边由于后端没有区分测试和正式，姑且都写成一个接口。
 // axios.defaults.baseURL = config[import.meta.env.MODE].baseUrl
 
-//
-axios.defaults.baseURL =
-    process.env.NODE_ENV == "development"
-        ? "http://154.198.224.126:9191/manage-api/v1"
-        : "http://154.198.224.126:9191/manage-api/v1";
+// axios.defaults.baseURL = "http://134.122.197.173/9191/manage-api/v1"
 
 
-//
+axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
+
+
+
+
 // axios.defaults.baseURL =
 //     process.env.NODE_ENV == "development"
 //         ? "https://wildberries.store/manage-api/v1"
@@ -27,8 +27,7 @@ axios.defaults.baseURL =
 //     process.env.NODE_ENV == "development"
 //         ? "http://localhost:9191/manage-api/v1"
 //         : "http://localhost:9191/manage-api/v1";
-// 携带 cookie，对目前的项目没有什么作用，因为我们是 token 鉴权
-axios.defaults.withCredentials = true
+// axios.defaults.withCredentials = true
 // 请求头，headers 信息
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['token'] = localGet('token') || ''
