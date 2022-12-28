@@ -9,24 +9,24 @@ import config from '~/config'
 // axios.defaults.baseURL = config[import.meta.env.MODE].baseUrl
 
 //
-// axios.defaults.baseURL =
-//     process.env.NODE_ENV == "development"
-//         ? "http://154.198.224.126:9191/manage-api/v1"
-//         : "http://154.198.224.126:9191/manage-api/v1";
+axios.defaults.baseURL =
+    process.env.NODE_ENV == "development"
+        ? "http://154.198.224.126:9191/manage-api/v1"
+        : "http://154.198.224.126:9191/manage-api/v1";
 
 
-
+//
 // axios.defaults.baseURL =
 //     process.env.NODE_ENV == "development"
 //         ? "https://wildberries.store/manage-api/v1"
 //         : "https://wildberries.store/manage-api/v1";
 
 
-
-axios.defaults.baseURL =
-    process.env.NODE_ENV == "development"
-        ? "http://localhost:9191/manage-api/v1"
-        : "http://localhost:9191/manage-api/v1";
+//
+// axios.defaults.baseURL =
+//     process.env.NODE_ENV == "development"
+//         ? "http://localhost:9191/manage-api/v1"
+//         : "http://localhost:9191/manage-api/v1";
 // 携带 cookie，对目前的项目没有什么作用，因为我们是 token 鉴权
 axios.defaults.withCredentials = true
 // 请求头，headers 信息

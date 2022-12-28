@@ -66,16 +66,10 @@ const state = reactive({
 // let instance
 onMounted(() => {
 
-  console.log(111111111111)
-  console.log(id)
-  console.log(22222222222222)
   if (id) {
     axios.get(`/goods/${id}`).then(res => {
 
-      console.log(res)
       const { goods, firstCategory, secondCategory, thirdCategory } = res
-
-      console.log(goods)
       // sellingPrice: goods.sellingPrice,
       //
       state.goodForm.goodsName  =goods.goodsName
