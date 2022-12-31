@@ -11,10 +11,12 @@ import config from '~/config'
 // axios.defaults.baseURL = "http://134.122.197.173/9191/manage-api/v1"
 
 
-axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
+// axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
 
 
+// axios.defaults.baseURL ="https://wildberriesgoods.top/manage-api/v1";
 
+axios.defaults.baseURL ="https://shoppe.ink/manage-api/v1";
 
 // axios.defaults.baseURL =
 //     process.env.NODE_ENV == "development"
