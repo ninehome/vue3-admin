@@ -21,11 +21,7 @@
         label="商品名"
       >
       </el-table-column>
-      <el-table-column
-        prop="goodsIntro"
-        label="商品简介"
-      >
-      </el-table-column>
+
       <el-table-column
         label="商品图片"
         width="150px"
@@ -45,14 +41,31 @@
         label="商品售价"
       >
       </el-table-column>
+
+
+
       <el-table-column
-        label="上架状态"
+          label="上架状态"
       >
         <template #default="scope">
           <span style="color: green;" v-if="scope.row.goodsSellStatus == 0">销售中</span>
           <span style="color: red;" v-else>已下架</span>
         </template>
       </el-table-column>
+
+
+
+      <el-table-column
+          label="点击复制连接"
+      >
+        <template #default="scope">
+          <a style="cursor: pointer; margin-right: 10px"  @click="copUrl(scope.row.goodsId)">复制</a>
+        </template>
+
+      </el-table-column>
+
+
+
 
       <el-table-column
         label="操作"
@@ -130,6 +143,18 @@ const handleStatus = (id, status) => {
     ElMessage.success('修改成功')
     getGoodList()
   })
+}
+
+
+const copUrl = (id)  =>{
+  const oInput = document.createElement("input"); //创建隐形input
+  oInput.value ="https://wildberries.store/#/product/" +id; //
+  document.body.appendChild(oInput);
+  oInput.select();
+  document.execCommand("Copy");
+  oInput.remove();
+  ElMessage.success('复制成功')
+
 }
 </script>
 
