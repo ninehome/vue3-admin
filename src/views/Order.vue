@@ -25,8 +25,8 @@
       >
       </el-table-column>
       <el-table-column
-          prop="extraInfo"
-          label="订单详情"
+          prop="userName"
+          label="用户名"
       >
       </el-table-column>
 

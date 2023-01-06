@@ -25,8 +25,8 @@
       >
       </el-table-column>
       <el-table-column
-          prop="extraInfo"
-          label="订单详情"
+          prop="userName"
+          label="用户名"
       >
       </el-table-column>
 
@@ -41,7 +41,7 @@
       >
         <template #default="scope">
           <span style="color: red;" v-if="scope.row.orderStatus === 5">回购完成</span>
-          <span style="color: green;" v-else="scope.row.orderStatus === 4">申请回购</span>
+          <span style="color: green;" v-else="scope.row.orderStatus === 4">申请回购中...</span>
           <!--          <span style="color: yellow;" v-else>异常订单</span>-->
         </template>
       </el-table-column>
@@ -51,7 +51,7 @@
           width="100"
       >
         <template #default="scope" >
-          <a  style="cursor: pointer; margin-right: 10px ; color: #1baeae" @click="handleEdit(scope.row) " >确认回购</a>
+          <a  style="cursor: pointer; margin-right: 10px ; color: #1baeae" @click="handleEdit(scope.row) " >点击回购</a>
           <!--          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.goodsSellStatus == 0" @click="handleStatus(scope.row.goodsId, 1)">下架</a>-->
           <!--          <a style="cursor: pointer; margin-right: 10px" v-else @click="handleStatus(scope.row.goodsId, 0)">上架</a>-->
         </template>
@@ -84,7 +84,8 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 20 // 分页大小
+  pageSize: 20 ,// 分页大小
+  id:0
 })
 onMounted(() => {
   getGoodList()
@@ -106,6 +107,7 @@ const getGoodList = () => {
     state.total = res.totalCount
     state.currentPage = res.currPage
     state.loading = false
+
     goTop && goTop()
   })
 }
@@ -119,18 +121,22 @@ const handleEdit = (raw) => {
   }
 
   if (raw.orderStatus === 4){
-    console.log("ssssssssss")
-    console.log(raw.orderNo)
-    console.log("ssssssssss")
 
-    //回购 --- >修改订单状态
-    axios.post('/orders/back', {
-        orderNo:raw.orderNo
-      }
+    let  id  = raw.orderId
+    router.push({ path: '/backdetail', query: { id } })
 
-    ).then(res => {
-      getGoodList()
-    })
+    // console.log("ssssssssss")
+    // console.log(raw.orderNo)
+    // console.log("ssssssssss")
+    //
+    // //回购 --- >修改订单状态
+    // axios.post('/orders/back', {
+    //     orderNo:raw.orderNo
+    //   }
+    //
+    // ).then(res => {
+    //   getGoodList()
+    // })
 
 
 

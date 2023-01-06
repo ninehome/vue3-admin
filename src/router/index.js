@@ -33,6 +33,11 @@ const router = createRouter({
       component: () => import(/* 添加商品 webpackChunkName: "add" */ '../views/UpdateGood.vue')
     },
     {
+      path: '/backdetail',
+      name: 'backdetail',
+      component: () => import(/* 添加商品 webpackChunkName: "add" */ '../views/BuyBackDetail.vue')
+    },
+    {
       path: '/swiper',
       name: 'swiper',
       component: () => import(/* webpackChunkName: "swiper" */ '../views/Swiper.vue')
