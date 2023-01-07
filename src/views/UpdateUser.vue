@@ -22,6 +22,18 @@
     </el-form>
 
 
+    <el-form :model="state.nameForm"  ref="nameRef" label-width="180px" label-position="right" class="demo-ruleForm">
+    <el-form-item label="修改账户密码：" prop="nickName">
+      <el-input style="width: 200px" v-model="state.nameForm.userpsw"></el-input>
+    </el-form-item>
+
+
+    <el-form-item>
+      <el-button type="danger" @click="subMitpsw">确认修改用户密码</el-button>
+    </el-form-item>
+
+    </el-form>
+
   </el-card>
 
 </template>
@@ -36,7 +48,7 @@ import {localSet} from "@/utils";
 import {ElMessage} from "element-plus"; //useRouter 全局  useRoute当前
 const router = useRoute()
 const routermian = useRouter()
-// const nameRef = ref(null)
+
 let uid
 //视图响应对象   reactive取值赋值不需要.value方式  。视图响应对象   reactive取值赋值不需要.value方式
 //对基本 数据类型 无效
@@ -46,7 +58,8 @@ const state = reactive({
     userLevel: '0',
     userMoney: '0',
     loginName:'0',
-    userId:0
+    userId:0,
+    userpsw:''
   },
 
 })
@@ -83,9 +96,22 @@ let  level = state.nameForm.userLevel
     })
       routermian.push('/guest')
   })
+}
 
 
-
+const  subMitpsw=()=>{
+  let  userpsw  = state.nameForm.userpsw
+  axios.post('/update/password', {
+    "passwordMd5":md5(userpsw),
+    "userId":Number(uid)
+  }).then(res => {
+    ElMessage({
+      message: '操作成功!!!',
+      grouping: true,
+      type: 'success',
+    })
+    routermian.push('/guest')
+  })
 }
 
 </script>
