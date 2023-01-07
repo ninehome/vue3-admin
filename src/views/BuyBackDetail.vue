@@ -4,7 +4,7 @@
       <el-form :model="state.goodForm" :rules="state.rules" ref="goodRef" label-width="100px" class="goodForm">
 
         <div>
-          <el-header style="width: 200px;" >商品回购</el-header>
+          <el-header style="width: 200px; color: #1baeae ;margin-top: -10px" >商品回购订单编号: {{state.dataForm.orderNo}}</el-header>
         </div>
 
         <el-table
@@ -17,6 +17,8 @@
               label="商品编号"
           >
           </el-table-column>
+
+
           <el-table-column
               prop="goodsName"
               label="商品名"
@@ -133,14 +135,12 @@ onMounted(() => {
 
   if (id) {
     axios.get(`/orders/${id}`).then(res => {
-      console.log(12313131313)
-      console.log(res)
-      console.log(545435454434)
+
       // state.data = res.data
       state.dataForm.totalPrice = res.totalPrice
       state.dataForm.orderList = res.newBeeMallOrderItemVOS
       state.dataForm.orderNo = res.orderNo
-      console.log( state.dataForm.orderList)
+      // console.log( state.dataForm.orderList)
       // state.goodForm.goodsName  =goods.goodsName
       // state.goodForm.sellingPrice = goods.sellingPrice
       // state.goodForm.goodsCoverImg = goods.goodsCoverImg
@@ -151,7 +151,7 @@ onMounted(() => {
 
 
 const submitAdd = () => {
-  goodRef.value.validate((vaild) => {
+
     // if (vaild) {
     //   // 默认新增用 post 方法
     //   let params = {
@@ -173,18 +173,16 @@ const submitAdd = () => {
     // //回购 --- >修改订单状态
     axios.post('/orders/back', {
         orderNo: state.dataForm.orderNo,
-        orderMoney :state.dataForm.backPrice
+        orderMoney :Number.parseInt(state.dataForm.backPrice)
       }
     ).then(res => {
 
-      console.log(res)
 
-      // router.push({ path: '/mall_collect', query: { 0 } })
+      ElMessage.success("回购成功")
+
+      router.push('/mall_collect')
     })
 
-
-
-  })
 }
 
 </script>
