@@ -11,7 +11,7 @@ import config from '~/config'
 // axios.defaults.baseURL = "http://134.122.197.173/9191/manage-api/v1"
 
 
-axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
+// axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
 
 
 // axios.defaults.baseURL ="https://wildberriesgoods.top/manage-api/v1";
@@ -26,11 +26,7 @@ axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
 //         : "https://wildberries.store/manage-api/v1";
 
 
-//
-// axios.defaults.baseURL =
-//     process.env.NODE_ENV == "development"
-//         ? "http://localhost:9191/manage-api/v1"
-//         : "http://localhost:9191/manage-api/v1";
+axios.defaults.baseURL ="http://localhost:9191/manage-api/v1";
 axios.defaults.withCredentials = true
 // 请求头，headers 信息
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
