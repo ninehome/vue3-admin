@@ -50,7 +50,7 @@ axios.interceptors.response.use(res => {
     }
     return Promise.reject(res.data)
   }
-  console.log(res.data.data)
+  console.log(res.data)
   return res.data.data
 })
 

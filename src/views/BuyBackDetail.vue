@@ -133,9 +133,6 @@ onMounted(() => {
 
   if (id) {
     axios.get(`/orders/${id}`).then(res => {
-      console.log(12313131313)
-      console.log(res)
-      console.log(545435454434)
       // state.data = res.data
       state.dataForm.totalPrice = res.totalPrice
       state.dataForm.orderList = res.newBeeMallOrderItemVOS
@@ -151,40 +148,18 @@ onMounted(() => {
 
 
 const submitAdd = () => {
-  goodRef.value.validate((vaild) => {
-    // if (vaild) {
-    //   // 默认新增用 post 方法
-    //   let params = {
-    //     goodsId:id,
-    //     sellingPrice:   state.dataForm.backPrice
-    //   }
-    //
-    //   axios.post('/goods/update', params).then((res) => {
-    //     ElMessage.success('修改成功')
-    //     router.push({ path: '/good' })
-    //   })
-    // }
-
-
-    // console.log("ssssssssss")
-    // console.log(raw.orderNo)
-    // console.log("ssssssssss")
-    //
-    // //回购 --- >修改订单状态
-    axios.post('/orders/back', {
-        orderNo: state.dataForm.orderNo,
-        orderMoney :state.dataForm.backPrice
+  // //回购 --- >修改订单状态
+  axios.post('/orders/back', {
+        "orderNo": state.dataForm.orderNo,
+        "orderMoney" : state.dataForm.backPrice
       }
-    ).then(res => {
+  ).then(res => {
 
-      console.log(res)
-
-      // router.push({ path: '/mall_collect', query: { 0 } })
-    })
-
-
-
+    let id  = 0
+    router.push({ path: '/mall_collect', query: {id} })
   })
+
+
 }
 
 </script>
