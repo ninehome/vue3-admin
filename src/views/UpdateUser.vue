@@ -156,21 +156,16 @@ const  addMoney=()=>{
 
 
 const  dropMoney=()=>{
-  let  money  =  Number(state.nameForm.userMoney)  -  Number(state.nameForm.dropMoney)
+  let money  =  Number(state.nameForm.userMoney)  -  Number(state.nameForm.dropMoney)
   let  level = state.nameForm.userLevel
 
   if (money <0){
-     ElMessage({
-      message: '账户余额变为0',
-      grouping: true,
-      type: 'success',
-    })
     money = 0
   }
 
 
   axios.post('/adminUser/moneyAndLevel', {
-    "userMoney": Number(money),
+    "userMoney": money,
     "userLevel":Number(level),
     "userId":Number(uid)
   }).then(res => {
