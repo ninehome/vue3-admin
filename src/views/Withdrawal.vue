@@ -52,7 +52,9 @@
       <el-table-column
           label="复制信息"
       >
+        <template #default="scope">
         <a style="cursor: pointer; margin-right: 10px" @click="copyBill(scope.row)">复制</a>
+        </template>
       </el-table-column>
 
       <el-table-column
@@ -144,49 +146,29 @@ const changePage = (val) => {
 }
 
 
-
 //点击某个摁扭执行事件
- const copyBill = (bankName,bankAccount,name,money) =>{
-   //
-   // {
-   //   "withdraw": {
-   //   "withdrawId": 13,
-   //       "userId": 7,
-   //       "bankId": 1,
-   //       "loginName": "noe",
-   //       "userMoney": 16402,
-   //       "userLevel": 0,
-   //       "withdrawMoney": 55,
-   //       "dealFlag": 2,
-   //       "createTime": "2022-12-12 10:38:30",
-   //       "userIpAddr": "",
-   //       "agentId": "6001"
-   // },
-   //   "bank": {
-   //   "bankId": 1,
-   //       "userId": 7,
-   //       "bankName": "russbank",
-   //       "userName": "noe",
-   //       "bankNumber": "11111111111111111",
-   //       "default": 1,
-   //       "isDeleted": 0
-   // }
-   // }
+ const copyBill = (data) =>{
 
+   let bankName = "银行名称："+data.bank.bankName+"   ";
+   let bankAccount = "银行账户："+data.bank.bankNumber+"  ";
+   let userName = "姓名："+data.bank.userName+"  ";
+   let Money = "金额："+data.withdraw.withdrawMoney+"  ";
 
-  let url = 要复制的值;
   //新建一个文本框
-  let oInput = document.createElement('input');
+  let oInput = document.createElement('textarea');
+  // oInput.value = this.doc
   //赋值给文本框
-  oInput.value = url;
+  oInput.value = bankName+'\r\n' +bankAccount+'\r\n' +userName +'\r\n'+Money;
   document.body.appendChild(oInput);
   // 选择对象;
   oInput.select();
   // 执行浏览器复制命令
   document.execCommand("Copy");
+   document.body.removeChild(oInput)
   //复制完成删除掉输入框
   oInput.remove()
-  console.log('复制成功')
+  ElMessage.success('复制成功')
+
 }
 
 
