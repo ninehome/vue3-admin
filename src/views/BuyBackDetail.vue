@@ -97,6 +97,7 @@ const state = reactive({
   token: localGet('token') || '',
   id: id,
   key:0,
+  acitonFlag:false,
   defaultCate: '',
   dataForm: {
     goodsName: '',
@@ -161,14 +162,20 @@ onMounted(() => {
 
 
 const submitAdd = () => {
-  // //回购 --- >修改订单状态
+//回购 --- >修改订单状态
+  if (state.acitonFlag ===true){
+    ElMessage.success('已经处理中，不要连续点击')
+    return
+  }
+  state.acitonFlag = true
+
   axios.post('/orders/back', {
         "orderNo": state.dataForm.orderNo,
         "orderMoney" : state.dataForm.backPrice
       }
   ).then(res => {
-
     let id  = 0
+    state.acitonFlag = false
     router.push({ path: '/mall_collect', query: {id} })
   })
 
