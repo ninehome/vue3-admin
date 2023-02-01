@@ -1,14 +1,16 @@
 <template>
   <el-card class="good-container">
     <template #header>
-<!--      <div class="header">-->
-<!--        <el-button type="primary" :icon="Plus" @click="handleAdd">新增商品</el-button>-->
-<!--      </div>-->
+      <div class="header">
+        <el-icon style="width: 40px;height: 40px"><Refresh/></el-icon>
+        <el-button type="primary" :icon="Refresh" @click="handleAdd">点击刷新</el-button>
+      </div>
     </template>
 
 
 
     <el-table
+        :key="state.key"
         :load="state.loading"
         :data="state.tableData"
         tooltip-effect="dark"
@@ -24,6 +26,14 @@
           label="订单总金额"
       >
       </el-table-column>
+
+      <el-table-column
+          prop="待开发"
+          label="购买数量 待开发"
+      >
+      </el-table-column>
+
+
       <el-table-column
           prop="userName"
           label="用户名"
@@ -49,17 +59,21 @@
         </template>
       </el-table-column>
 
-      <el-table-column
-          label="操作"
-          width="100"
-      >
-        <template #default="scope">
-          <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.goodsId)">修改</a>
-          <!--          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.goodsSellStatus == 0" @click="handleStatus(scope.row.goodsId, 1)">下架</a>-->
-          <!--          <a style="cursor: pointer; margin-right: 10px" v-else @click="handleStatus(scope.row.goodsId, 0)">上架</a>-->
-        </template>
-      </el-table-column>
+<!--      <el-table-column-->
+<!--          label="操作"-->
+<!--          width="100"-->
+<!--      >-->
+<!--        <template #default="scope">-->
+<!--          <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.goodsId)">修改</a>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
     </el-table>
+
+
+
+
+
+
     <!--总数超过一页，再展示分页器-->
     <el-pagination
         background
@@ -73,7 +87,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, getCurrentInstance } from 'vue'
+import {onMounted, reactive, getCurrentInstance, onBeforeUnmount} from 'vue'
 import axios from '@/utils/axios'
 import { ElMessage } from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
@@ -87,14 +101,27 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 10 // 分页大小
+  pageSize: 50 ,// 分页大小
+  key:0,
+  timer: null
 })
 onMounted(() => {
   getGoodList()
+
+  //每10s刷新数据
+  state.timer = setInterval(() => {
+    handleAdd();
+  }, 10000);
+})
+
+onBeforeUnmount(() => {
+  clearInterval(state.timer)
+  state.timer = null;
 })
 // 获取轮播图列表
 const getGoodList = () => {
   state.loading = true
+  state.tableData = []
   axios.get('/orders', {
     params: {
       pageNumber: state.currentPage,
@@ -105,11 +132,56 @@ const getGoodList = () => {
     state.total = res.totalCount
     state.currentPage = res.currPage
     state.loading = false
+    this.key = Math.random()
     goTop && goTop()
+
+    //获取订单详情
+
+  for(const v of res.list){
+    axios.get(`/orders/${v.orderId}`).then(res => {
+      console.log(res)
+      // state.data = res
+      // state.tableData = res.newBeeMallOrderItemVOS
+    })
+
+  }
+
+
+
   })
 }
 const handleAdd = () => {
-  // router.push({ path: '/add' })
+  // location.reload()
+
+  state.loading = true
+  state.tableData = []
+  axios.get('/orders', {
+    params: {
+      pageNumber: state.currentPage,
+      pageSize: state.pageSize,
+    }
+  }).then(res => {
+    state.tableData = res.list
+    state.total = res.totalCount
+    state.currentPage = res.currPage
+    state.loading = false
+    this.key = Math.random()
+    goTop && goTop()
+
+    //获取订单详情
+
+    for(const v of res.list){
+      axios.get(`/orders/${v.orderId}`).then(res => {
+        console.log(res)
+        // state.data = res
+        // state.tableData = res.newBeeMallOrderItemVOS
+      })
+
+    }
+
+
+
+  })
 }
 const handleEdit = (id) => {
   // router.push({ path: '/add', query: { id } })

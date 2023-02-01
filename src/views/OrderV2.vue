@@ -2,8 +2,7 @@
   <el-card class="good-container">
     <template #header>
       <div class="header">
-        <el-icon style="width: 40px;height: 40px"><Refresh/></el-icon>
-        <el-button type="primary" :icon="Refresh" @click="handleAdd">点击刷新</el-button>
+        <el-button type="primary" :icon="Plus" @click="handleAdd">点击刷新</el-button>
       </div>
     </template>
 
@@ -25,11 +24,13 @@
           label="订单总金额"
       >
       </el-table-column>
-<!--      <el-table-column-->
-<!--          prop="goodsCount"-->
-<!--          label="商品数量"-->
-<!--      >-->
-<!--      </el-table-column>-->
+
+      <el-table-column
+          prop="totalPrice"
+          label="购买数量"
+      >
+      </el-table-column>
+
 
       <el-table-column
           prop="userName"
@@ -47,23 +48,30 @@
           label="订单状态"
       >
         <template #default="scope">
-          <span style="color: red;" v-if="scope.row.orderStatus === 5">回购完成</span>
-          <span style="color: green;" v-else="scope.row.orderStatus === 4">申请回购中...</span>
-          <!--          <span style="color: yellow;" v-else>异常订单</span>-->
+          <span style="color: red;" v-if="scope.row.payStatus === 0">未支付</span>
+          <span style="color: green;" v-else-if="scope.row.orderStatus === 5">完成回购</span>
+          <span style="color: green;" v-else-if="scope.row.orderStatus === 1">支付完成，等待客户回购</span>
+          <span style="color: green;" v-else-if="scope.row.orderStatus === 4">客户已提交回购,等待后台确认</span>
+
+          <span style="color: yellow;" v-else>异常订单</span>
         </template>
       </el-table-column>
 
-      <el-table-column
-          label="操作"
-          width="100"
-      >
-        <template #default="scope" >
-          <a  style="cursor: pointer; margin-right: 10px ; color: #1baeae" @click="handleEdit(scope.row) " >点击回购</a>
-          <!--          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.goodsSellStatus == 0" @click="handleStatus(scope.row.goodsId, 1)">下架</a>-->
-          <!--          <a style="cursor: pointer; margin-right: 10px" v-else @click="handleStatus(scope.row.goodsId, 0)">上架</a>-->
-        </template>
-      </el-table-column>
+<!--      <el-table-column-->
+<!--          label="操作"-->
+<!--          width="100"-->
+<!--      >-->
+<!--        <template #default="scope">-->
+<!--          <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.goodsId)">修改</a>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
     </el-table>
+
+
+
+
+
+
     <!--总数超过一页，再展示分页器-->
     <el-pagination
         background
@@ -77,7 +85,7 @@
 </template>
 
 <script setup>
-import {onMounted, reactive, getCurrentInstance, onBeforeUnmount} from 'vue'
+import { onMounted, reactive, getCurrentInstance } from 'vue'
 import axios from '@/utils/axios'
 import { ElMessage } from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
@@ -91,80 +99,48 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 20 ,// 分页大小
-  id:0,
-  timer: null
+  pageSize: 10 // 分页大小
 })
 onMounted(() => {
   getGoodList()
-
-  //每10s刷新数据
-  state.timer = setInterval(() => {
-    handleAdd();
-  }, 10000);
 })
-
-
-onBeforeUnmount(() => {
-  clearInterval(state.timer)
-  state.timer = null;
-})
-
+// 获取轮播图列表
 const getGoodList = () => {
   state.loading = true
-  axios.get('/orders/buyback', {
+  axios.get('/orders', {
     params: {
       pageNumber: state.currentPage,
       pageSize: state.pageSize,
-      orderStatus:"4",
-      orderNo:""
-    },
-    // orderStatus:"4",
-
+    }
   }).then(res => {
     state.tableData = res.list
     state.total = res.totalCount
     state.currentPage = res.currPage
     state.loading = false
+    // goTop && goTop()
 
-    goTop && goTop()
+    //获取订单详情
+
+  for(const v of res.list){
+    axios.get(`/orders/${v.orderId}`).then(res => {
+      console.log(res)
+      // state.data = res
+      // state.tableData = res.newBeeMallOrderItemVOS
+    })
+
+  }
+
+
+
+
+
+
   })
 }
 const handleAdd = () => {
-   getGoodList()
+  // router.push({ path: '/add' })
 }
-const handleEdit = (raw) => {
-  if (raw.orderStatus === 5){
-    ElMessage.success('已经回购订单,不可继续操作')
-    return
-  }
-
-  if (raw.orderStatus === 4){
-
-    let  id  = raw.orderId
-    router.push({ path: '/backdetail', query: { id } })
-
-    // console.log("ssssssssss")
-    // console.log(raw.orderNo)
-    // console.log("ssssssssss")
-    //
-    // //回购 --- >修改订单状态
-    // axios.post('/orders/back', {
-    //     orderNo:raw.orderNo
-    //   }
-    //
-    // ).then(res => {
-    //   getGoodList()
-    // })
-
-
-
-
-
-
-  }
-
-
+const handleEdit = (id) => {
   // router.push({ path: '/add', query: { id } })
 }
 const changePage = (val) => {

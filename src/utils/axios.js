@@ -11,14 +11,14 @@ import config from '~/config'
 // axios.defaults.baseURL = "http://134.122.197.173/9191/manage-api/v1"
 
 
-// axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
+axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
 
 
 // axios.defaults.baseURL ="https://wildberriesgoods.top/manage-api/v1";
 
 // axios.defaults.baseURL ="https://shoppe.ink/manage-api/v1";
 
-axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
+// axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
 
 // axios.defaults.baseURL =
 //     process.env.NODE_ENV == "development"
@@ -43,7 +43,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 // 请求拦截器，内部根据返回值，重新组装，统一管理。
 axios.interceptors.response.use(res => {
   // if (typeof res.data !== 'object') {
-  //   console.log(res)
+    console.log(res)
   //   ElMessage.error('服务端异常！')
   //   return Promise.reject(res)
   // }

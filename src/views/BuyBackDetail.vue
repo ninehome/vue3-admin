@@ -8,6 +8,7 @@
         </div>
 
         <el-table
+            :key="state.key"
             :data="state.dataForm.orderList"
             tooltip-effect="dark"
             style="width: 100%"
@@ -22,6 +23,13 @@
           <el-table-column
               prop="goodsName"
               label="商品名"
+          >
+          </el-table-column>
+
+
+          <el-table-column
+              prop="goodsCount"
+              label="数量"
           >
           </el-table-column>
 
@@ -88,6 +96,7 @@ const state = reactive({
   uploadImgServer,
   token: localGet('token') || '',
   id: id,
+  key:0,
   defaultCate: '',
   dataForm: {
     goodsName: '',
@@ -140,6 +149,7 @@ onMounted(() => {
       state.dataForm.totalPrice = res.totalPrice
       state.dataForm.orderList = res.newBeeMallOrderItemVOS
       state.dataForm.orderNo = res.orderNo
+      this.key = Math.random()
       // console.log( state.dataForm.orderList)
       // state.goodForm.goodsName  =goods.goodsName
       // state.goodForm.sellingPrice = goods.sellingPrice
