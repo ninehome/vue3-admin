@@ -161,37 +161,17 @@ onMounted(() => {
 
 
 const submitAdd = () => {
-
-    // if (vaild) {
-    //   // 默认新增用 post 方法
-    //   let params = {
-    //     goodsId:id,
-    //     sellingPrice:   state.dataForm.backPrice
-    //   }
-    //
-    //   axios.post('/goods/update', params).then((res) => {
-    //     ElMessage.success('修改成功')
-    //     router.push({ path: '/good' })
-    //   })
-    // }
-
-
-    // console.log("ssssssssss")
-    // console.log(raw.orderNo)
-    // console.log("ssssssssss")
-    //
-    // //回购 --- >修改订单状态
-    axios.post('/orders/back', {
-        orderNo: state.dataForm.orderNo,
-        orderMoney :Number.parseInt(state.dataForm.backPrice)
+  // //回购 --- >修改订单状态
+  axios.post('/orders/back', {
+        "orderNo": state.dataForm.orderNo,
+        "orderMoney" : state.dataForm.backPrice
       }
-    ).then(res => {
+  ).then(res => {
 
+    let id  = 0
+    router.push({ path: '/mall_collect', query: {id} })
+  })
 
-      ElMessage.success("回购成功")
-
-      router.push('/mall_collect')
-    })
 
 }
 

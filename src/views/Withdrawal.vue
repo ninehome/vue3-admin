@@ -49,14 +49,31 @@
           label="提款时间"
       >
       </el-table-column>
+      <el-table-column
+          label="复制信息"
+      >
+        <template #default="scope">
+        <a style="cursor: pointer; margin-right: 10px" @click="copyBill(scope.row)">复制</a>
+        </template>
+      </el-table-column>
 
       <el-table-column
           label="出款状态"
       >
         <template #default="scope">
-          <span style="color: red;" v-if="scope.row.withdraw.dealFlag === 0">未出款</span>
-          <span style="color: green;" v-else="scope.row.withdraw.dealFlag === 1">已出款</span>
-<!--          <span style="color: yellow;" v-else>异常订单</span>-->
+          <span style="color: rgb(12,236,117);" v-if="scope.row.withdraw.dealFlag === 0">待出款</span>
+          <span style="color: rgb(12,236,117);" v-else-if="scope.row.withdraw.dealFlag === 1">已出款</span>
+          <span style="color: red;" v-else-if="scope.row.withdraw.dealFlag === 2">已驳回</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+          label="操作"
+          width="100">
+        <template #default="scope">
+
+          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.withdraw.dealFlag === 0"   @click="handleConfirm(scope.row.withdraw.withdrawId)">确认提款</a>
+          <span style="color: rgba(153,153,153,0.37);" v-else >已经处理</span>
         </template>
       </el-table-column>
 
@@ -65,9 +82,9 @@
           width="100"
       >
         <template #default="scope">
-          <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.goodsId)">修改</a>
-<!--          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.goodsSellStatus == 0" @click="handleStatus(scope.row.goodsId, 1)">下架</a>-->
-<!--          <a style="cursor: pointer; margin-right: 10px" v-else @click="handleStatus(scope.row.goodsId, 0)">上架</a>-->
+          <a style="cursor: pointer; margin-right: 10px"  v-if="scope.row.withdraw.dealFlag === 0"  @click="handleRejected(scope.row.withdraw.withdrawId)">驳回提款</a>
+          <span style="color: rgba(153,153,153,0.37);" v-else >已经处理</span>
+
         </template>
       </el-table-column>
     </el-table>
@@ -120,20 +137,66 @@ const getGoodList = () => {
 const handleAdd = () => {
   // router.push({ path: '/add' })
 }
-const handleEdit = (id) => {
-  // router.push({ path: '/add', query: { id } })
-}
+// const handleEdit = (id) => {
+//    router.push({ path: '/add', query: { id } })
+// }
 const changePage = (val) => {
   state.currentPage = val
   getGoodList()
 }
-const handleStatus = (id, status) => {
-  // axios.put(`/goods/status/${status}`, {
-  //   ids: id ? [id] : []
-  // }).then(() => {
-  //   ElMessage.success('修改成功')
-  //   getGoodList()
-  // })
+
+
+//点击某个摁扭执行事件
+ const copyBill = (data) =>{
+
+   let bankName = "银行名称："+data.bank.bankName+"   ";
+   let bankAccount = "银行账户："+data.bank.bankNumber+"  ";
+   let userName = "姓名："+data.bank.userName+"  ";
+   let Money = "金额："+data.withdraw.withdrawMoney+"  ";
+
+  //新建一个文本框
+  let oInput = document.createElement('textarea');
+  // oInput.value = this.doc
+  //赋值给文本框
+  oInput.value = bankName+'\r\n' +bankAccount+'\r\n' +userName +'\r\n'+Money;
+  document.body.appendChild(oInput);
+  // 选择对象;
+  oInput.select();
+  // 执行浏览器复制命令
+  document.execCommand("Copy");
+   document.body.removeChild(oInput)
+  //复制完成删除掉输入框
+  oInput.remove()
+  ElMessage.success('复制成功')
+
+}
+
+
+//驳回
+const handleRejected = (id) => {
+  console.log(33333333333)
+  console.log(id)
+  console.log(33333333333)
+  axios.post(`/update/withdrawal`, {
+    "withdrawId": id,
+    "dealFlag":2
+  }).then(() => {
+    ElMessage.success('修改成功')
+    getGoodList()
+  })
+}
+
+
+
+//确认提款
+const handleConfirm = (id) => {
+  axios.post(`/update/withdrawal`, {
+    "withdrawId": id,
+    "dealFlag":1
+  }).then(() => {
+    ElMessage.success('修改成功')
+    getGoodList()
+  })
 }
 </script>
 

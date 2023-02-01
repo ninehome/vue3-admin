@@ -12,7 +12,7 @@
 
 
       <el-form-item label="账户余额：" prop="nickName">
-        <el-input style="width: 200px" v-model="state.nameForm.userMoney"></el-input>
+        <el-input style="width: 200px" v-model="state.nameForm.userMoney" disabled="false"></el-input>
       </el-form-item>
 
 
@@ -23,16 +23,51 @@
 
 
     <el-form :model="state.nameForm"  ref="nameRef" label-width="180px" label-position="right" class="demo-ruleForm">
-    <el-form-item label="修改账户密码：" prop="nickName">
-      <el-input style="width: 200px" v-model="state.nameForm.userpsw"></el-input>
-    </el-form-item>
+      <el-form-item label="修改账户密码：" prop="nickName">
+        <el-input style="width: 200px" v-model="state.nameForm.userpsw"></el-input>
+      </el-form-item>
 
 
-    <el-form-item>
-      <el-button type="danger" @click="subMitpsw">确认修改用户密码</el-button>
-    </el-form-item>
+      <el-form-item>
+        <el-button type="danger" @click="subMitpsw">确认修改用户密码</el-button>
+      </el-form-item>
 
     </el-form>
+
+
+
+
+
+    <el-form :model="state.nameForm"  ref="nameRef" label-width="180px" label-position="right" class="demo-ruleForm">
+        <el-form-item label="减少余额：" prop="nickName">
+          <el-input style="width: 200px" v-model="state.nameForm.dropMoney"></el-input>
+        </el-form-item>
+
+
+        <el-form-item>
+          <el-button type="danger" @click="dropMoney">确认减少</el-button>
+        </el-form-item>
+
+    </el-form>
+
+
+
+    <el-form :model="state.nameForm"  ref="nameRef" label-width="180px" label-position="right" class="demo-ruleForm">
+      <el-form-item label="增加余额：" prop="nickName">
+        <el-input style="width: 200px" v-model="state.nameForm.addMoney"></el-input>
+      </el-form-item>
+
+
+      <el-form-item>
+        <el-button type="danger" @click="addMoney">确认增加</el-button>
+      </el-form-item>
+
+    </el-form>
+
+
+
+
+
 
   </el-card>
 
@@ -59,7 +94,9 @@ const state = reactive({
     userMoney: '0',
     loginName:'0',
     userId:0,
-    userpsw:''
+    userpsw:'',
+    addMoney:'',
+    dropMoney:''
   },
 
 })
@@ -97,6 +134,71 @@ let  level = state.nameForm.userLevel
       routermian.push('/guest')
   })
 }
+
+
+const  addMoney=()=>{
+  let  money  =  Number(state.nameForm.userMoney)  +  Number(state.nameForm.addMoney)
+  let  level = state.nameForm.userLevel
+
+  axios.post('/adminUser/moneyAndLevel', {
+    "userMoney": Number(money),
+    "userLevel":Number(level),
+    "userId":Number(uid)
+  }).then(res => {
+    ElMessage({
+      message: '操作成功!!!',
+      grouping: true,
+      type: 'success',
+    })
+    routermian.push('/guest')
+  })
+}
+
+
+const  dropMoney=()=>{
+  let money  =  Number(state.nameForm.userMoney)  -  Number(state.nameForm.dropMoney)
+  let  level = state.nameForm.userLevel
+
+  if (money <0){
+    money = 0
+  }
+
+
+  axios.post('/adminUser/moneyAndLevel', {
+    "userMoney": money,
+    "userLevel":Number(level),
+    "userId":Number(uid)
+  }).then(res => {
+    ElMessage({
+      message: '操作成功!!!',
+      grouping: true,
+      type: 'success',
+    })
+    routermian.push('/guest')
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const  subMitpsw=()=>{
