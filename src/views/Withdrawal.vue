@@ -103,9 +103,10 @@
 <script setup>
 import { onMounted, reactive, getCurrentInstance } from 'vue'
 import axios from '@/utils/axios'
-import { ElMessage } from 'element-plus'
+import { ElMessage ,ElLoading} from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
+
 
 const app = getCurrentInstance()
 const { goTop } = app.appContext.config.globalProperties
@@ -115,7 +116,9 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 10 // 分页大小
+  pageSize: 10 ,// 分页大小
+  actionFlag:false
+
 })
 onMounted(() => {
   getGoodList()
@@ -174,16 +177,21 @@ const changePage = (val) => {
 
 //驳回
 const handleRejected = (id) => {
-  console.log(33333333333)
-  console.log(id)
-  console.log(33333333333)
+  if (state.actionFlag === true){
+    ElMessage.success('请不要重复点击')
+  }
+
+  state.actionFlag = true
   axios.post(`/update/withdrawal`, {
     "withdrawId": id,
     "dealFlag":2
   }).then(() => {
     ElMessage.success('修改成功')
     getGoodList()
+    state.actionFlag = false
   })
+
+
 }
 
 
