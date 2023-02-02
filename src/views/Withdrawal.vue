@@ -1,7 +1,16 @@
 <template>
   <el-card class="good-container">
 
+    <template #header>
+      <div class="header">
+        <el-icon style="width: 40px;height: 40px"><Refresh/></el-icon>
+        <el-button type="primary" :icon="Refresh" @click="handleAdd">点击刷新</el-button>
+      </div>
+    </template>
+
+
     <el-table
+        :key="state.key"
         :load="state.loading"
         :data="state.tableData"
         tooltip-effect="dark"
@@ -101,7 +110,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, getCurrentInstance } from 'vue'
+import {onMounted, reactive, getCurrentInstance, onBeforeUnmount} from 'vue'
 import axios from '@/utils/axios'
 import { ElMessage ,ElLoading} from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
@@ -117,11 +126,23 @@ const state = reactive({
   total: 0, // 总条数
   currentPage: 1, // 当前页
   pageSize: 10 ,// 分页大小
-  actionFlag:false
+  actionFlag:false,
+  key:0,
+  timer: null
 
 })
 onMounted(() => {
   getGoodList()
+
+  //每10s刷新数据
+  state.timer = setInterval(() => {
+    handleAdd();
+  }, 10000);
+})
+
+onBeforeUnmount(() => {
+  clearInterval(state.timer)
+  state.timer = null;
 })
 // 获取列表
 const getGoodList = () => {
@@ -134,11 +155,13 @@ const getGoodList = () => {
     state.total = res.totalCount
     state.currentPage = res.currPage
     state.loading = false
-    goTop && goTop()
+     state.key = Math.random()
+     goTop && goTop()
+     state.actionFlag = false
   })
 }
 const handleAdd = () => {
-  // router.push({ path: '/add' })
+  getGoodList()
 }
 // const handleEdit = (id) => {
 //    router.push({ path: '/add', query: { id } })
@@ -179,17 +202,18 @@ const changePage = (val) => {
 const handleRejected = (id) => {
   if (state.actionFlag === true){
     ElMessage.success('请不要重复点击')
+  }else {
+    state.actionFlag = true
+    axios.post(`/update/withdrawal`, {
+      "withdrawId": id,
+      "dealFlag":2
+    }).then(() => {
+      ElMessage.success('修改成功')
+      getGoodList()
+    })
   }
 
-  state.actionFlag = true
-  axios.post(`/update/withdrawal`, {
-    "withdrawId": id,
-    "dealFlag":2
-  }).then(() => {
-    ElMessage.success('修改成功')
-    getGoodList()
-    state.actionFlag = false
-  })
+
 
 
 }

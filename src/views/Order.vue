@@ -132,7 +132,7 @@ const getGoodList = () => {
     state.total = res.totalCount
     state.currentPage = res.currPage
     state.loading = false
-    this.key = Math.random()
+    state.key = Math.random()
     goTop && goTop()
 
     //获取订单详情
@@ -165,7 +165,7 @@ const handleAdd = () => {
     state.total = res.totalCount
     state.currentPage = res.currPage
     state.loading = false
-    this.key = Math.random()
+    state.key = Math.random()
     goTop && goTop()
 
     //获取订单详情
