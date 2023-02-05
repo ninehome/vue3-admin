@@ -145,10 +145,10 @@ const handleStatus = (id, status) => {
   })
 }
 
-
+//复制商品链接
 const copUrl = (id)  =>{
   const oInput = document.createElement("input"); //创建隐形input
-  oInput.value ="https://wildberries.store/#/product/" +id; //
+  oInput.value ="https://wildberriesgoods.top/#/product/" +id; //
   document.body.appendChild(oInput);
   oInput.select();
   document.execCommand("Copy");
