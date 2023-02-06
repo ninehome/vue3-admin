@@ -125,7 +125,7 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 10 ,// 分页大小
+  pageSize: 1000 ,// 分页大小
   actionFlag:false,
   key:0,
   timer: null
@@ -137,7 +137,7 @@ onMounted(() => {
   //每10s刷新数据
   state.timer = setInterval(() => {
     handleAdd();
-  }, 5000);
+  }, 15000);
 })
 
 onBeforeUnmount(() => {

@@ -101,7 +101,7 @@ onMounted(() => {
   //每10s刷新数据
   state.timer = setInterval(() => {
     handleAdd();
-  }, 10000);
+  }, 15000);
 })
 
 
