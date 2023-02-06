@@ -2,13 +2,15 @@
   <el-card class="good-container">
     <template #header>
       <div class="header">
-        <el-button type="primary" :icon="Plus" @click="handleAdd">点击刷新</el-button>
+        <el-icon style="width: 40px;height: 40px"><Refresh/></el-icon>
+        <el-button type="primary" :icon="Refresh" @click="handleAdd">点击刷新</el-button>
       </div>
     </template>
 
 
 
     <el-table
+        :key="state.key"
         :load="state.loading"
         :data="state.tableData"
         tooltip-effect="dark"
@@ -26,9 +28,18 @@
       </el-table-column>
 
       <el-table-column
-          prop="totalPrice"
-          label="购买数量"
+          label="订单详情"
       >
+        <template #default="scope">
+          <span> 商品总数：{{ scope.row.newBeeMallOrderItemVOS.length }} 件</span>
+
+        <div style="display: flex;  align-items: center;" v-for="(item, index) in scope.row.newBeeMallOrderItemVOS" v-bind:key="index" >
+
+          <span> 售价：{{ item.sellingPrice }} ₽</span>
+          <img style="width: 50px; height: 50px; margin-left: 10px" :key="item.goodsId" :src="item.goodsCoverImg" alt="商品主图">
+        </div>
+
+        </template>
       </el-table-column>
 
 
@@ -52,7 +63,6 @@
           <span style="color: green;" v-else-if="scope.row.orderStatus === 5">完成回购</span>
           <span style="color: green;" v-else-if="scope.row.orderStatus === 1">支付完成，等待客户回购</span>
           <span style="color: green;" v-else-if="scope.row.orderStatus === 4">客户已提交回购,等待后台确认</span>
-
           <span style="color: yellow;" v-else>异常订单</span>
         </template>
       </el-table-column>
@@ -85,7 +95,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, getCurrentInstance } from 'vue'
+import {onMounted, reactive, getCurrentInstance, onBeforeUnmount} from 'vue'
 import axios from '@/utils/axios'
 import { ElMessage } from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
@@ -99,15 +109,28 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 10 // 分页大小
+  pageSize: 50 ,// 分页大小
+  key:0,
+  timer: null
 })
 onMounted(() => {
   getGoodList()
+
+  //每10s刷新数据
+  state.timer = setInterval(() => {
+    getGoodList();
+  }, 10000);
 })
-// 获取轮播图列表
+
+onBeforeUnmount(() => {
+  clearInterval(state.timer)
+  state.timer = null;
+})
+//
 const getGoodList = () => {
   state.loading = true
-  axios.get('/orders', {
+  state.tableData = []
+  axios.get('/orders/v2', {
     params: {
       pageNumber: state.currentPage,
       pageSize: state.pageSize,
@@ -117,29 +140,56 @@ const getGoodList = () => {
     state.total = res.totalCount
     state.currentPage = res.currPage
     state.loading = false
-    // goTop && goTop()
+    state.key = Math.random()
+    goTop && goTop()
 
     //获取订单详情
 
-  for(const v of res.list){
-    axios.get(`/orders/${v.orderId}`).then(res => {
-      console.log(res)
-      // state.data = res
-      // state.tableData = res.newBeeMallOrderItemVOS
-    })
-
-  }
-
-
-
+  // for(const v of res.list){
+  //   axios.get(`/orders/${v.orderId}`).then(res => {
+  //     console.log(res)
+  //     // state.data = res
+  //     // state.tableData = res.newBeeMallOrderItemVOS
+  //   })
+  //
+  // }
 
 
 
   })
 }
-const handleAdd = () => {
-  // router.push({ path: '/add' })
-}
+// const handleAdd = () => {
+//   // location.reload()
+//
+//   state.loading = true
+//   state.tableData = []
+//   axios.get('/orders/v2', {
+//     params: {
+//       pageNumber: state.currentPage,
+//       pageSize: state.pageSize,
+//     }
+//   }).then(res => {
+//     state.tableData = res.list
+//     state.total = res.totalCount
+//     state.currentPage = res.currPage
+//     state.loading = false
+//     state.key = Math.random()
+//     goTop && goTop()
+//
+//     //获取订单详情
+//     // for(const v of res.list){
+//     //   axios.get(`/orders/${v.orderId}`).then(res => {
+//     //     console.log(res)
+//     //     // state.data = res
+//     //     // state.tableData = res.newBeeMallOrderItemVOS
+//     //   })
+//     //
+//     // }
+//
+//
+//
+//   })
+// }
 const handleEdit = (id) => {
   // router.push({ path: '/add', query: { id } })
 }
