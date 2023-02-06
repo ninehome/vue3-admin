@@ -137,14 +137,14 @@ const getGoodList = () => {
 
     //获取订单详情
 
-  for(const v of res.list){
-    axios.get(`/orders/${v.orderId}`).then(res => {
-      console.log(res)
-      // state.data = res
-      // state.tableData = res.newBeeMallOrderItemVOS
-    })
-
-  }
+  // for(const v of res.list){
+  //   axios.get(`/orders/${v.orderId}`).then(res => {
+  //     console.log(res)
+  //     // state.data = res
+  //     // state.tableData = res.newBeeMallOrderItemVOS
+  //   })
+  //
+  // }
 
 
 
