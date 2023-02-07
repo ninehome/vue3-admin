@@ -31,12 +31,15 @@
           label="订单详情"
       >
         <template #default="scope">
-          <span> 商品总数：{{ scope.row.newBeeMallOrderItemVOS.length }} 件</span>
+<!--          <span> 商品总数：{{ scope.row.newBeeMallOrderItemVOS.length }} 件</span>-->
+
+          <span style="color: #1baeae "> 商品总数：{{ CountGoodNumber(scope.row.newBeeMallOrderItemVOS) }} 件</span>
 
         <div style="display: flex;  align-items: center;" v-for="(item, index) in scope.row.newBeeMallOrderItemVOS" v-bind:key="index" >
 
-          <span> 售价：{{ item.sellingPrice }} ₽</span>
+          <span> 售价:{{ item.sellingPrice }} ₽</span>
           <img style="width: 50px; height: 50px; margin-left: 10px" :key="item.goodsId" :src="item.goodsCoverImg" alt="商品主图">
+          <span style="margin-left: 10px"> x {{ item.goodsCount }}</span>
         </div>
 
         </template>
@@ -119,14 +122,24 @@ onMounted(() => {
   //每10s刷新数据
   state.timer = setInterval(() => {
     getGoodList();
-  }, 15000);
+  }, 20000);
 })
 
 onBeforeUnmount(() => {
   clearInterval(state.timer)
   state.timer = null;
 })
-//
+
+//计算商品数量
+const  CountGoodNumber = (item) =>{
+  let num = 0
+  item.forEach(element => {
+
+    num = num +element.goodsCount
+  });
+  return num
+}
+
 const getGoodList = () => {
   state.loading = true
   state.tableData = []
