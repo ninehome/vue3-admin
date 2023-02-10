@@ -62,7 +62,7 @@
           label="订单状态"
       >
         <template #default="scope">
-          <span style="color: #f6c006;" v-if="scope.row.payStatus === 0">未支付</span>
+          <span style="color: #f6c006;" v-if="scope.row.orderStatus === 0">未支付,通知客户付款</span>
           <span style="color: #000000;" v-else-if="scope.row.orderStatus === 5">完成回购</span>
           <span style="color: #0826ec;" v-else-if="scope.row.orderStatus === 1">支付完成，等待客户回购</span>
           <span style="color: green;" v-else-if="scope.row.orderStatus === 4">客户已提交回购,等待后台确认</span>
