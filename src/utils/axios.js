@@ -11,7 +11,7 @@ import config from '~/config'
 // axios.defaults.baseURL = "http://134.122.197.173/9191/manage-api/v1"
 
 //导弹
-// axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
+axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
 
 //飞哥
 // axios.defaults.baseURL = "https://wildberries.cool/manage-api/v1"
@@ -21,7 +21,7 @@ import config from '~/config'
 
 // axios.defaults.baseURL ="https://shoppe.ink/manage-api/v1";
 
-axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
+// axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
 
 
 
