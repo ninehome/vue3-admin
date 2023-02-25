@@ -22,9 +22,13 @@
 
     </template>
 
-    <Table
-      action='/users'
-      ref="table"
+    <el-table
+        :load="state.loading"
+        :data="state.tableData"
+        tooltip-effect="dark"
+        style="width: 100%"
+        stripe
+        @selection-change="handleSelectionChange"
     >
       <template #column>
         <el-table-column
@@ -83,24 +87,72 @@
         </el-table-column>
 
       </template>
-    </Table>
+      <slot name='column'></slot>
+    </el-table>
+
+    <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="state.total"
+        :page-size="state.pageSize"
+        :current-page="state.currentPage"
+        @current-change="changePage"
+    />
   </el-card>
 </template>
 
 <script setup >
-import { ref,reactive} from 'vue'
-import Table from '@/components/Table.vue'
+import { ref,reactive,getCurrentInstance,onMounted} from 'vue'
 import { ElMessage } from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import axios from '@/utils/axios'
-import md5 from "js-md5";
-import {localGet, localSet, uploadImgServer} from "@/utils";
 
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const table = ref(null)
 
+const props = defineProps({
+  action: String
+})
 
+const app = getCurrentInstance()
+const { goTop } = app.appContext.config.globalProperties
+const state = reactive({
+  loading: false,
+  tableData: [], // 数据列表
+  total: 0, // 总条数
+  currentPage: 1, // 当前页
+  pageSize: 20, // 分页大小
+  multipleSelection: []
+})
+onMounted(() => {
+  getList()
+})
+
+const getList = () => {
+  state.loading = true
+  axios.get(props.action, {
+    params: {
+      pageNumber: state.currentPage,
+      pageSize: state.pageSize
+    }
+  }).then(res => {
+    state.tableData = res.list
+    state.total = res.totalCount
+    state.currentPage = res.currPage
+    state.loading = false
+    goTop && goTop() // 回到顶部
+  })
+}
+
+const handleSelectionChange = (val) => {
+  state.multipleSelection = val
+}
+
+const changePage = (val) => {
+  state.currentPage = val
+  getList()
+}
 
 
 const state = reactive({
@@ -174,8 +226,6 @@ const handleForbid = () => {
 
 
 
-
-// "/manage-api/v1/users?pageNumber=1&pageSize=10"
 
 //修改用户余额 和 等级
 
