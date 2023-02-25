@@ -113,7 +113,7 @@ onMounted(() => {
 // 获取轮播图列表
 const getGoodList = () => {
   state.loading = true
-  axios.get('/goods/list', {
+  axios.get('goods/list/oder', {
     params: {
       pageNumber: state.currentPage,
       pageSize: state.pageSize
