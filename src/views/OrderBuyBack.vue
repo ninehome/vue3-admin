@@ -14,6 +14,7 @@
         :data="state.tableData"
         tooltip-effect="dark"
         style="width: 100%"
+        stripe
     >
       <el-table-column
           prop="orderNo"

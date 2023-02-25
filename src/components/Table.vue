@@ -4,6 +4,7 @@
       :data="state.tableData"
       tooltip-effect="dark"
       style="width: 100%"
+      stripe
       @selection-change="handleSelectionChange"
   >
     <slot name='column'></slot>
@@ -32,7 +33,7 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 10, // 分页大小
+  pageSize: 20, // 分页大小
   multipleSelection: []
 })
 onMounted(() => {

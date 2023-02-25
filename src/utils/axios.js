@@ -8,20 +8,21 @@ import config from '~/config'
 // 这边由于后端没有区分测试和正式，姑且都写成一个接口。
 // axios.defaults.baseURL = config[import.meta.env.MODE].baseUrl
 
-// axios.defaults.baseURL = "http://134.122.197.173/9191/manage-api/v1"
 
-//导弹
+
+//导弹导弹导弹导弹导弹导弹
 // axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
 
-//飞哥
-axios.defaults.baseURL = "https://wildberries.cool/manage-api/v1"
+//飞哥飞飞哥飞哥飞哥飞哥飞哥
+// axios.defaults.baseURL = "https://wildberries.cool/manage-api/v1"
+
+//印度
+// axios.defaults.baseURL = "https://shoppe.ink/manage-api/v1"
 
 
-// axios.defaults.baseURL ="https://wildberriesgoods.top/manage-api/v1";
 
-// axios.defaults.baseURL ="https://shoppe.ink/manage-api/v1";
 
-// axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
+axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
 
 
 
