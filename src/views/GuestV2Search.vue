@@ -123,7 +123,10 @@ const state = reactive({
   total: 0, // 总条数
   currentPage: 1, // 当前页
   pageSize: 20, // 分页大小
-  multipleSelection: []
+  multipleSelection: [],
+  user_name: '',
+  acitonFlag:false,
+
 })
 onMounted(() => {
   getList()
@@ -154,12 +157,6 @@ const changePage = (val) => {
   getList()
 }
 
-
-const state = reactive({
-  user_name: '',
-  acitonFlag:false,
-  tableData: [], // 数据列表
-})
 
 
 
