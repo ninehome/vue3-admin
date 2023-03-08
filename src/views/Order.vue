@@ -101,7 +101,7 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 50 ,// 分页大小
+  pageSize: 30,// 分页大小
   key:0,
   timer: null
 })

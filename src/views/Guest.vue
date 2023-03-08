@@ -18,8 +18,6 @@
 
       </div>
 
-      <el-input  style="width: 300px ;margin-top: 20px" v-model="state.user_name"  placeholder="请输入用户名" class="input-search-user"      clearable></el-input>
-
     </template>
 
     <Table
