@@ -11,7 +11,9 @@ import config from '~/config'
 
 
 //导弹导弹导弹导弹导弹导弹
-axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
+// axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
+axios.defaults.goodURL = "https://ru.wildberr.online/#/product/"
+
 
 //飞哥飞飞哥飞哥飞哥飞哥飞哥
 // axios.defaults.baseURL = "https://wildberries.cool/manage-api/v1"
@@ -23,7 +25,10 @@ axios.defaults.baseURL = "https://wildberries.store/manage-api/v1"
 //海王
 // axios.defaults.baseURL = "https://wildberries.plus/manage-api/v1"
 
-// axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
+
+
+// 本机环境
+axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
 
 
 
