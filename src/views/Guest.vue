@@ -70,7 +70,11 @@
         >
         </el-table-column>
 
-
+        <el-table-column
+            prop="agentId"
+            label="代理线"
+        >
+        </el-table-column>
 
         <el-table-column
             label="操作"

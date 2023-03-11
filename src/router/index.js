@@ -82,8 +82,8 @@ const router = createRouter({
     {
       path: '/guest',
       name: 'guest',
-      component: () => import(/* webpackChunkName: "guest" */ '../views/Guest.vue')
-      // component: () => import(/* webpackChunkName: "guest" */ '../views/GuestV2Search.vue')
+      // component: () => import(/* webpackChunkName: "guest" */ '../views/Guest.vue')
+      component: () => import(/* webpackChunkName: "guest" */ '../views/GuestV2Search.vue')
     },
     {
       path: '/order',

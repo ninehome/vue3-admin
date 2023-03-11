@@ -151,10 +151,6 @@ const getGoodList = () => {
     pageNumber: state.currentPage,
     pageSize: state.pageSize
   }).then(res => {
-    console.log(1111111)
-    console.log(res)
-     console.log(state.currentPage)
-     console.log(1111111)
     state.tableData = res.list
     state.total = res.totalCount
     state.currentPage = res.currPage
