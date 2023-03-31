@@ -25,10 +25,11 @@ import config from '~/config'
 //海王
 // axios.defaults.baseURL = "https://wildberries.plus/manage-api/v1"
 
-
+//牛哥
+axios.defaults.baseURL = "https://wildber.info/manage-api/v1";
 
 // 本机环境
-axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
+// axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
 
 
 
