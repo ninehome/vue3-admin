@@ -49,7 +49,7 @@
         >
         </el-table-column>
         <el-table-column
-            label="身份状态"
+            label="提现状态"
         >
           <template #default="scope">
                   <span :style="scope.row.lockedFlag == 0 ? 'color: green;' : 'color: red;'">
@@ -98,7 +98,17 @@
           </template>
         </el-table-column>
 
+      <el-table-column
+          label="提现"
+      >
+        <template #default="scope">
 
+          <span :style="scope.row.lockedFlag == 0 ? 'color: green;' : 'color: red;'">
+                <el-button type="primary" @click="updateLockedFlag(scope.row)">  {{ scope.row.lockedFlag == 0 ? '禁用' : '解除' }} </el-button>
+         </span>
+
+        </template>
+      </el-table-column>
 
     </el-table>
     <!--总数超过一页，再展示分页器-->
@@ -180,7 +190,6 @@ const changePage = (val) => {
 
 // 刷新
 const clearInput = ()=>{
-  console.log("点击了清除按钮")
   getList()
 }
 
@@ -215,29 +224,29 @@ const searchUser = () => {
 
 
 const handleSolve = () => {
-  if (!table.value.multipleSelection.length) {
-    ElMessage.error('请选择项')
-    return
-  }
-  axios.put(`/users/0`, {
-    ids: table.value.multipleSelection.map(item => item.userId)
-  }).then(() => {
-    ElMessage.success('解除成功')
-    table.value.getList()
-  })
+  // if (!table.value.multipleSelection.length) {
+  //   ElMessage.error('请选择项')
+  //   return
+  // }
+  // axios.put(`/users/0`, {
+  //   ids: table.value.multipleSelection.map(item => item.userId)
+  // }).then(() => {
+  //   ElMessage.success('解除成功')
+  //   getList()
+  // })
 }
 const handleForbid = () => {
-  if (!table.value.multipleSelection.length) {
-    ElMessage.error('请选择项')
-    return
-  }
-
-  axios.put(`/users/1`, {
-    ids: table.value.multipleSelection.map(item => item.userId)
-  }).then(() => {
-    ElMessage.success('禁用成功')
-    table.value.getList()
-  })
+  // if (!table.value.multipleSelection.length) {
+  //   ElMessage.error('请选择项')
+  //   getList()
+  // }
+  //
+  // axios.put(`/users/1`, {
+  //   ids: table.value.multipleSelection.map(item => item.userId)
+  // }).then(() => {
+  //   ElMessage.success('禁用成功')
+  //   getList()
+  // })
 }
 
 
@@ -245,8 +254,26 @@ const handleForbid = () => {
 
 const updateUser = (id) => {
   router.push({path: '/update_user', query: {type: id}})
+}
+
+const updateLockedFlag = (user) =>{
+  let url = ''
+  if(user.lockedFlag ==1 ){
+    url = `/users/0`
+  }else {
+    url = `/users/1`
+  }
+
+  axios.put(url, {
+    ids: user.userId
+  }).then(() => {
+    ElMessage.success('禁用成功')
+    getList()
+  })
 
 }
+
+
 </script>
 
 <style scoped>
