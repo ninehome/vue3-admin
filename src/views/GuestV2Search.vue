@@ -267,7 +267,13 @@ const updateLockedFlag = (user) =>{
   axios.put(url, {
     ids: user.userId
   }).then(() => {
-    ElMessage.success('禁用成功')
+
+    if(url == '/users/0'){
+      ElMessage.success('解除成功')
+    }else {
+      ElMessage.success('已禁用')
+    }
+
     getList()
   })
 
