@@ -5,6 +5,22 @@
         <el-icon style="width: 40px;height: 40px"><Refresh/></el-icon>
         <el-button type="primary" :icon="Refresh" @click="handleAdd">点击刷新</el-button>
       </div>
+
+
+      <div>
+        <el-input style="width: 300px ;margin-top: 20px"
+                  v-model="state.user_name"
+                  placeholder="请输入用户名"
+                  class="input-search-user"
+                  @clear = "clearInput"
+                  clearable></el-input>
+
+        <el-button type="primary" @click="searchUser()" style="width: 80px ;margin-top: 20px ; margin-left: 20px">
+          {{ '搜索' }}
+        </el-button>
+      </div>
+
+
     </template>
 
 
@@ -172,6 +188,58 @@ const getGoodList = () => {
 
   })
 }
+
+
+const searchUser = () => {
+
+  if (state.acitonFlag === true) {
+    ElMessage.success('已经处理中，不要连续点击')
+    return
+  }
+//回购 --- >修改订单状态
+  if (state.user_name === '') {
+    ElMessage.success('请输入用户名')
+    return
+  }
+  state.acitonFlag = true
+  console.log(state.user_name)
+  axios.get('/orders/name', {
+    "loginName": state.user_name
+  }).then(res => {
+    state.acitonFlag = false
+    state.tableData = res.list
+    // goTop && goTop() // 回到顶部
+    // // state.user = res
+    // state.nameForm.userLevel = res.userLevel
+    // state.nameForm.userMoney = res.userMoney
+    // state.nameForm.loginName = res.loginName
+    // state.nameForm.userId = res.userId
+  })
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const handleAdd = () => {
 //   // location.reload()
 //
