@@ -192,28 +192,29 @@ const getGoodList = () => {
 
 const searchUser = () => {
 
-  if (state.acitonFlag === true) {
+  if (state.loading === true) {
     ElMessage.success('已经处理中，不要连续点击')
     return
   }
-//回购 --- >修改订单状态
+
   if (state.user_name === '') {
     ElMessage.success('请输入用户名')
     return
   }
-  state.acitonFlag = true
+
+  state.loading = true
+  state.tableData = []
+
   console.log(state.user_name)
-  axios.get('/orders/name', {
+  axios.post('/orders/name', {
     "loginName": state.user_name
   }).then(res => {
-    state.acitonFlag = false
     state.tableData = res.list
-    // goTop && goTop() // 回到顶部
-    // // state.user = res
-    // state.nameForm.userLevel = res.userLevel
-    // state.nameForm.userMoney = res.userMoney
-    // state.nameForm.loginName = res.loginName
-    // state.nameForm.userId = res.userId
+    state.total = res.totalCount
+    state.currentPage = res.currPage
+    state.loading = false
+    state.key = Math.random()
+    goTop && goTop()
   })
 
 
