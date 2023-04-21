@@ -191,7 +191,7 @@ const getGoodList = () => {
 
 
 const searchUser = () => {
-
+   state.currentPage = 1
   if (state.loading === true) {
     ElMessage.success('已经处理中，不要连续点击')
     return
@@ -207,7 +207,9 @@ const searchUser = () => {
 
   console.log(state.user_name)
   axios.post('/orders/name', {
-    "loginName": state.user_name
+    loginName: state.user_name,
+    pageNumber: state.currentPage,
+    pageSize: state.pageSize,
   }).then(res => {
     state.tableData = res.list
     state.total = res.totalCount
