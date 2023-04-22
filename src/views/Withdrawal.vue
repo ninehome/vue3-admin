@@ -6,6 +6,19 @@
         <el-icon style="width: 40px;height: 40px"><Refresh/></el-icon>
         <el-button type="primary" :icon="Refresh" @click="handleAdd">点击刷新</el-button>
       </div>
+
+      <div>
+        <el-input style="width: 300px ;margin-top: 20px"
+                  v-model="state.user_name"
+                  placeholder="请输入用户名"
+                  class="input-search-user"
+                  @clear = "clearInput"
+                  clearable></el-input>
+
+        <el-button type="primary" @click="searchUser()" style="width: 80px ;margin-top: 20px ; margin-left: 20px">
+          {{ '搜索' }}
+        </el-button>
+      </div>
     </template>
 
 
@@ -125,7 +138,7 @@ const state = reactive({
   tableData: [], // 数据列表
   total: 0, // 总条数
   currentPage: 1, // 当前页
-  pageSize: 15 ,// 分页大小
+  pageSize: 30 ,// 分页大小
   actionFlag:false,
   key:0,
   timer: null
@@ -160,6 +173,33 @@ const getGoodList = () => {
      state.actionFlag = false
   })
 }
+
+
+const searchUser = () => {
+  state.currentPage = 1
+  state.loading = true
+  axios.post('/users/withdrawals/withName',{
+    pageNumber: state.currentPage,
+    pageSize: state.pageSize,
+    loginName: state.user_name,
+  }).then(res => {
+    state.tableData = res.list
+    state.total = res.totalCount
+    state.currentPage = res.currPage
+    state.loading = false
+    state.key = Math.random()
+    goTop && goTop()
+    state.actionFlag = false
+  })
+
+}
+
+
+
+
+
+
+
 const handleAdd = () => {
   getGoodList()
 }
