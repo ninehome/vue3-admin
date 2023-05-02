@@ -162,9 +162,6 @@ const handleStatus = (id, status) => {
 
 
 const handleCountStart = (id, status) => {
-
-  console.log("ID是s")
-  console.log(id)
   axios.post(`/goods/countdown`, {
     "goodsId": id.toString()
   }).then(() => {
@@ -176,8 +173,7 @@ const handleCountStart = (id, status) => {
 
 const handleCountEnd = (id) => {
 
-  console.log("ID是s")
-  console.log(id)
+
 
   axios.post(`/goods/cancel`, {
     "goodsId": id.toString()
