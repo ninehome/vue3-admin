@@ -48,7 +48,7 @@
           label="上架状态"
       >
         <template #default="scope">
-          <span style="color: green;" v-if="scope.row.goodsSellStatus == 0">销售中</span>
+          <span style="color: green;" v-if="scope.row.goodsSellStatus === 0">销售中</span>
           <span style="color: red;" v-else>已下架</span>
         </template>
       </el-table-column>
@@ -73,8 +73,22 @@
       >
         <template #default="scope">
           <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.goodsId)">修改</a>
-          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.goodsSellStatus == 0" @click="handleStatus(scope.row.goodsId, 1)">下架</a>
+          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.goodsSellStatus === 0" @click="handleStatus(scope.row.goodsId, 1)">下架</a>
           <a style="cursor: pointer; margin-right: 10px" v-else @click="handleStatus(scope.row.goodsId, 0)">上架</a>
+        </template>
+      </el-table-column>
+
+
+<!--      商品是否开启倒计时-->
+
+      <el-table-column
+          label="倒计时"
+          width="100"
+      >
+        <template #default="scope">
+<!--          <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.goodsId)">修改</a>-->
+          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.countTime > 0" @click="handleCountStart(scope.row.goodsId, 1)">关闭</a>
+          <a style="cursor: pointer; margin-right: 10px" v-else @click="handleCountEnd(scope.row.goodsId, 0)">开启</a>
         </template>
       </el-table-column>
     </el-table>
@@ -144,6 +158,30 @@ const handleStatus = (id, status) => {
     getGoodList()
   })
 }
+
+
+
+const handleCountStart = (id, status) => {
+  axios.post(`/goods/countdown`, {
+    ids: id ? [id] : []
+  }).then(() => {
+    ElMessage.success('修改成功')
+    getGoodList()
+  })
+}
+
+
+const handleCountEnd = (id, status) => {
+  axios.post(`/goods/cancel`, {
+    ids: id ? [id] : []
+  }).then(() => {
+    ElMessage.success('修改成功')
+    getGoodList()
+  })
+}
+
+
+
 
 //复制商品链接
 const copUrl = (id)  =>{
