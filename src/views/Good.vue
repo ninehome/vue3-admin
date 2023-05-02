@@ -87,8 +87,8 @@
       >
         <template #default="scope">
 <!--          <a style="cursor: pointer; margin-right: 10px" @click="handleEdit(scope.row.goodsId)">修改</a>-->
-          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.countTime > 0" @click="handleCountStart(scope.row.goodsId, 1)">关闭</a>
-          <a style="cursor: pointer; margin-right: 10px" v-else @click="handleCountEnd(scope.row.goodsId, 0)">开启</a>
+          <a style="cursor: pointer; margin-right: 10px" v-if="scope.row.countTime > 0" @click="handleCountEnd(scope.row.goodsId)">关闭</a>
+          <a style="cursor: pointer; margin-right: 10px" v-else @click="handleCountStart(scope.row.goodsId, 0)">开启</a>
         </template>
       </el-table-column>
     </el-table>
@@ -162,8 +162,11 @@ const handleStatus = (id, status) => {
 
 
 const handleCountStart = (id, status) => {
+
+  console.log("ID是s")
+  console.log(id)
   axios.post(`/goods/countdown`, {
-    ids: id ? [id] : []
+    "goodsId": id.toString()
   }).then(() => {
     ElMessage.success('修改成功')
     getGoodList()
@@ -171,9 +174,13 @@ const handleCountStart = (id, status) => {
 }
 
 
-const handleCountEnd = (id, status) => {
+const handleCountEnd = (id) => {
+
+  console.log("ID是s")
+  console.log(id)
+
   axios.post(`/goods/cancel`, {
-    ids: id ? [id] : []
+    "goodsId": id.toString()
   }).then(() => {
     ElMessage.success('修改成功')
     getGoodList()
