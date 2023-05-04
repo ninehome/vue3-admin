@@ -27,8 +27,7 @@ import config from '~/config'
 // axios.defaults.goodURL = "https://wildberries.plus/#/product/"
 //牛哥
 axios.defaults.baseURL = "https://wildber.info/manage-api/v1";
-axios.defaults.goodURL = "https://ru.wildber.info/#/product/"  //商品链接
-
+axios.defaults.goodURL = "https://ushop.live/#/product/"  //商品链接
 
 
 
