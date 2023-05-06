@@ -44,6 +44,7 @@ export const pathMap = {
   level3: '分类三级管理',
   good: '商品管理',
   guest: '会员管理',
+  recharge:'充值记录',
   order: '订单管理',
   order_detail: '订单详情',
   account: '修改账户'

@@ -46,6 +46,7 @@
               <el-menu-item index="/guest"><el-icon><User /></el-icon>会员管理</el-menu-item>
               <el-menu-item index="/order"><el-icon><List /></el-icon>订单管理</el-menu-item>
               <el-menu-item index="/withdrawal"><el-icon><List /></el-icon>提现管理</el-menu-item>
+              <el-menu-item index="/recharge"><el-icon><List /></el-icon>充值记录</el-menu-item>
               <el-menu-item index="/mall_collect"><el-icon><List /></el-icon>商品回购</el-menu-item>
               <el-menu-item index="/mall_chat"><el-icon><List /></el-icon>客服账号管理</el-menu-item>
             </el-menu-item-group>
