@@ -67,6 +67,17 @@
 
 
 
+    <el-form :model="state.nameForm"  ref="nameRef" label-width="180px" label-position="right" class="demo-ruleForm">
+      <el-form-item label="充值：" prop="nickName">
+        <el-input style="width: 200px" v-model="state.nameForm.rechargeMoney"></el-input>
+      </el-form-item>
+
+
+      <el-form-item>
+        <el-button type="danger" @click="rechargeMoney">确认充值</el-button>
+      </el-form-item>
+
+    </el-form>
 
 
   </el-card>
@@ -96,6 +107,7 @@ const state = reactive({
     userId:0,
     userpsw:'',
     addMoney:'',
+    rechargeMoney:'',
     dropMoney:''
   },
 
@@ -155,6 +167,25 @@ const  addMoney=()=>{
 }
 
 
+const  rechargeMoney=()=>{
+  let  money  =  Number(state.nameForm.userMoney)  +  Number(state.nameForm.rechargeMoney)
+  let  level = state.nameForm.userLevel
+
+  axios.post('/adminUser/rechargeMoney', {
+    "userMoney": Number(money),
+    "userLevel":Number(level),
+    "userId":Number(uid)
+  }).then(res => {
+    ElMessage({
+      message: '操作成功!!!',
+      grouping: true,
+      type: 'success',
+    })
+    routermian.push('/guest')
+  })
+}
+
+
 const  dropMoney=()=>{
   let money  =  Number(state.nameForm.userMoney)  -  Number(state.nameForm.dropMoney)
   let  level = state.nameForm.userLevel
@@ -177,24 +208,6 @@ const  dropMoney=()=>{
     routermian.push('/guest')
   })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
