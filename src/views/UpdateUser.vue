@@ -174,7 +174,8 @@ const  rechargeMoney=()=>{
   axios.post('/adminUser/rechargeMoney', {
     "userMoney": Number(money),
     "userLevel":Number(level),
-    "userId":Number(uid)
+    "userId":Number(uid),
+    "rechargeMoney":Number(state.nameForm.rechargeMoney)
   }).then(res => {
     ElMessage({
       message: '操作成功!!!',
