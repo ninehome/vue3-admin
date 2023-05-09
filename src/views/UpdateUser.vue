@@ -172,9 +172,6 @@ const  rechargeMoney=()=>{
   let  level = state.nameForm.userLevel
   let  rem =  Number(state.nameForm.rechargeMoney)
 
-  console.log("eeeessss")
-  console.log(rem)
-  console.log("sssmmmm")
   axios.post('/adminUser/rechargeMoney', {
     "userMoney": Number(money),
     "userLevel":Number(level),
