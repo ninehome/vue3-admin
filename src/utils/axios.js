@@ -31,6 +31,10 @@ axios.defaults.goodURL = "https://ushop.live/#/product/"  //商品链接
 
 
 
+// 牛哥代理商户
+// axios.defaults.baseURL = "https://ushop.ws/manage-api/v1";
+// axios.defaults.goodURL = "https://ushop.ws/#/product/"  //商品链接
+
 // 本机
 // axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
 
