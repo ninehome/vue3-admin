@@ -99,6 +99,22 @@
         </el-table-column>
 
       <el-table-column
+          label="银行卡管理"
+      >
+        <template #default="scope">
+          <el-button type="primary" @click="changeBankCard(scope.row.userId)">管理</el-button>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+          label="私信"
+      >
+        <template #default="scope">
+          <el-button type="primary" @click="createMsg(scope.row.userId)">开发中</el-button>
+        </template>
+      </el-table-column>
+
+      <el-table-column
           label="提现"
       >
         <template #default="scope">
@@ -255,6 +271,16 @@ const handleForbid = () => {
 const updateUser = (id) => {
   router.push({path: '/update_user', query: {type: id}})
 }
+
+
+const changeBankCard = (id) => {
+  router.push({path: '/update_bank', query: {type: id}})
+}
+
+const createMsg = (id) => {
+  router.push({path: '/create_msg', query: {type: id}})
+}
+
 
 const updateLockedFlag = (user) =>{
   let url = ''

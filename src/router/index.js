@@ -130,7 +130,21 @@ const router = createRouter({
       path: '/update_user',
       name: 'update_user',
       component: () => import(/* webpackChunkName: "account" */ '../views/UpdateUser.vue')
+    },
+    {
+      path: '/update_bank',
+      name: 'update_bank',
+      component: () => import(/* webpackChunkName: "account" */ '../views/ChangeBankCard.vue')
+    },
+
+    {
+      path: '/create_msg',
+      name: 'create_msg',
+      component: () => import(/* webpackChunkName: "account" */ '../views/CreateMsg.vue')
     }
+
+
+
   ]
 })
 
