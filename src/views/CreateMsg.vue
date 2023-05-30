@@ -19,7 +19,7 @@
 
 
       <el-form-item>
-        <el-button type="danger" @click="subMit">隐藏私信</el-button>
+        <el-button type="danger" @click="hideMsg">删除私信</el-button>
       </el-form-item>
 
     </el-form>
@@ -139,19 +139,19 @@ const state = reactive({
 
 onMounted(() => {
   uid =  router.query.type
-  axios.post('/user/profile',{
-    "userId":Number(uid),
-    "MsgTxt":state.nameForm.msg
-  }).then(res => {
-
-    ElMessage({
-      message: '操作成功!!!',
-      grouping: true,
-      type: 'success',
-    })
-
-
-  })
+  // axios.post('/user/profile',{
+  //   "userId":Number(uid),
+  //   "MsgTxt":state.nameForm.msg
+  // }).then(res => {
+  //
+  //   ElMessage({
+  //     message: '操作成功!!!',
+  //     grouping: true,
+  //     type: 'success',
+  //   })
+  //
+  //
+  // })
 
 })
 
@@ -171,12 +171,31 @@ const handleEdit = (id) => {
 
 }
 
-// 修改卡号
+// 创建 私信
 const  createMsg=()=>{
 
   axios.post('/user/msg/creat', {
     "userId":Number(uid),
     "MsgTxt":state.nameForm.msg
+
+  }).then(res => {
+    ElMessage({
+      message: '操作成功!!!',
+      grouping: true,
+      type: 'success',
+    })
+    state.visible = false
+    getBankList()
+
+  })
+}
+
+
+// 隐藏 私信
+const  hideMsg=()=>{
+
+  axios.post('/user/msg/hide', {
+    "userId":Number(uid),
 
   }).then(res => {
     ElMessage({
