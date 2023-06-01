@@ -110,7 +110,7 @@
           label="私信"
       >
         <template #default="scope">
-          <el-button type="primary" @click="createMsg(scope.row.userId)">开发中</el-button>
+          <el-button type="primary" @click="createMsg(scope.row.userId)">私信</el-button>
         </template>
       </el-table-column>
 
