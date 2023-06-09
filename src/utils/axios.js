@@ -30,11 +30,11 @@ import config from '~/config'
 
 //牛哥
 // axios.defaults.baseURL = "https://wildber.info/manage-api/v1";
-axios.defaults.goodURL = "https://ushop.live/#/product/"  //商品链接
+// axios.defaults.goodURL = "https://ru.emall.pw/#/product/"  //商品链接
 
 
 
-// 牛哥代理商户
+// 牛哥 哈萨克斯坦
 // axios.defaults.baseURL = "https://ushop.ws/manage-api/v1";
 // axios.defaults.goodURL = "https://ushop.ws/#/product/"  //商品链接
 

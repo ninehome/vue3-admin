@@ -51,6 +51,15 @@
 
       </el-table-column>
 
+      <el-table-column
+          label="操作"
+      >
+        <template #default="scope">
+          <el-button type="primary" @click="deleteBankCard(scope.row.bankId)">删除</el-button>
+        </template>
+
+      </el-table-column>
+
 
     </el-table>
 
@@ -165,6 +174,24 @@ const  updateUser=()=>{
   axios.post('/userBank/update', {
     "BankNumber":state.bankNumber,
     "BankId":Number(state.bankid )
+
+  }).then(res => {
+    ElMessage({
+      message: '操作成功!!!',
+      grouping: true,
+      type: 'success',
+    })
+    state.visible = false
+    getBankList()
+
+  })
+}
+
+
+const  deleteBankCard=(id)=>{
+
+  axios.post('/userBank/delete', {
+    "BankId":Number(id)
 
   }).then(res => {
     ElMessage({
