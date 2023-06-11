@@ -40,6 +40,11 @@
       >
       </el-table-column>
       <el-table-column
+          prop="withdraw.agentId"
+          label="代理线"
+      >
+      </el-table-column>
+      <el-table-column
           prop="withdraw.userLevel"
           label="vip等级"
       >
