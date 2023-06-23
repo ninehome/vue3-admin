@@ -134,6 +134,7 @@ import { ElMessage ,ElLoading} from 'element-plus'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 
+import { ref } from 'vue'
 
 const app = getCurrentInstance()
 const { goTop } = app.appContext.config.globalProperties
@@ -149,6 +150,22 @@ const state = reactive({
   timer: null
 
 })
+
+const loading = ref(false) // loading
+const openLoading = () => {
+  loading.value = ElLoading.service({
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  })
+}
+const closeLoading = () => {
+  loading.value.close()
+}
+
+
+
+
 onMounted(() => {
   getGoodList()
 
@@ -245,6 +262,7 @@ const changePage = (val) => {
 
 //驳回
 const handleRejected = (id) => {
+   openLoading()
   if (state.actionFlag === true){
     ElMessage.success('请不要重复点击')
   }else {
@@ -255,6 +273,7 @@ const handleRejected = (id) => {
     }).then(() => {
       ElMessage.success('修改成功')
       getGoodList()
+      closeLoading()
     })
   }
 
