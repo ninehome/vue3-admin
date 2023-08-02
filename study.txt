@@ -31,3 +31,17 @@ https://codeantenna.com/a/2lZyu25evh
 
 暗网地址分享
 https://ssrshare.github.io/2020/07/18/darkweb-56/
+
+
+
+用户注册链接
+https://ru.yashop.work/#/register?agent=8001
+
+
+
+agent=xxxx, 替换xxxx的数字 就是不同的代理线
+
+后台
+https://backend.wildber.info/#/login
+
+后台账户和之前完全一样，历史数据全部恢复

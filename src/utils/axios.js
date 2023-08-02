@@ -29,8 +29,8 @@ import config from '~/config'
 
 
 //牛哥
-// axios.defaults.baseURL = "https://wildber.info/manage-api/v1";
-// axios.defaults.goodURL = "https://ru.emall.pw/#/product/"  //商品链接
+axios.defaults.baseURL = "https://wildber.info/manage-api/v1";
+axios.defaults.goodURL = "https://ru.yashop.work/#/product/"  //商品链接
 
 
 
@@ -39,7 +39,7 @@ import config from '~/config'
 // axios.defaults.goodURL = "https://kz.lazashop.pw/#/product/"  //商品链接
 
 // 本机
-axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
+// axios.defaults.baseURL ="http://localhost:9191/manage-api/v1"
 
 
 
